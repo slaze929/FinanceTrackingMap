@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(cp:*)",
+      "Bash(rm:*)",
+      "Bash(mv:*)",
+      "Bash(rmdir:*)",
+      "Bash(if [ -d \"temp-project\" ])",
+      "Bash(then rm -rf temp-project)",
+      "Bash(fi)",
+      "Bash(npm install)",
+      "Bash(git init:*)",
+      "Bash(gh --version:*)",
+      "Bash(winget install:*)",
+      "Bash(choco install:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
