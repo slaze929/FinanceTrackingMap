@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import About from './pages/About';
 import CommentBoard from './pages/CommentBoard';
 import CompanyProfit from './pages/CompanyProfit';
+import AidTimeline from './pages/AidTimeline';
 import './App.css';
 
 // Animated routes wrapper
@@ -33,6 +34,7 @@ function AnimatedRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/comments" element={<CommentBoard />} />
         <Route path="/company-profit" element={<CompanyProfit />} />
+        <Route path="/aid-timeline" element={<AidTimeline />} />
       </Routes>
     </div>
   );

@@ -55,6 +55,9 @@ const Header = () => {
         <Link to="/company-profit" className="company-profit-link">
           COMPANY PROFIT
         </Link>
+        <Link to="/aid-timeline" className="aid-timeline-link">
+          AID TIMELINE
+        </Link>
       </div>
     </>
   );
