@@ -1,0 +1,36 @@
+@import url('https://fonts.cdnfonts.com/css/trajan-pro');
+
+.page-title-link {
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.page-title-link:hover .page-title {
+  color: #ff4444;
+  text-shadow:
+    0 0 15px #690909,
+    0 0 20px #690909,
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.page-title {
+  font-family: 'Trajan Pro', 'Trajan', 'Cinzel', 'Georgia', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: #e83030;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 1px;
+
+  /* Drop shadow */
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.6),
+    /* Outer glow */
+    0 0 10px #690909,
+    0 0 15px #690909,
+    0 0 20px rgba(105, 9, 9, 0.5);
+
+  transition: all 0.3s;
+  cursor: pointer;
+}

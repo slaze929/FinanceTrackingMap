@@ -55,9 +55,12 @@ const USMap = ({ onStateSelect }) => {
   const handleMouseEnter = (geo, stateName) => {
     setHoveredState(stateName);
 
-    // GSAP elevation animation
+    // Bring element to front by moving it to the end of parent
     const element = stateRefs.current[stateName];
-    if (element) {
+    if (element && element.parentNode) {
+      element.parentNode.appendChild(element);
+
+      // GSAP elevation animation
       gsap.to(element, {
         scale: 1.05,
         filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.3))',
@@ -84,6 +87,13 @@ const USMap = ({ onStateSelect }) => {
 
   const handleClick = (geo, stateName) => {
     setSelectedState(stateName);
+
+    // Bring selected element to front
+    const element = stateRefs.current[stateName];
+    if (element && element.parentNode) {
+      element.parentNode.appendChild(element);
+    }
+
     if (onStateSelect) {
       onStateSelect(stateName, congressData.states[stateName]);
     }
