@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import congressData from '../data/congressData.json';
-import AnimatedEye from '../components/AnimatedEye';
+import PageTitle from '../components/PageTitle';
 import './CommentBoard.css';
 
 const CommentBoard = () => {
@@ -82,11 +82,7 @@ const CommentBoard = () => {
   return (
     <div className="comment-board-container">
       <div className="comment-board-content">
-        <Link to="/" className="board-title-link">
-          <h1 className="board-title">
-            Where are J<AnimatedEye />w? - Comment Board
-          </h1>
-        </Link>
+        <PageTitle />
         <p className="board-subtitle">Anonymous forum for discussing congresspeople and AIPAC influence</p>
 
         <div className="board-layout">

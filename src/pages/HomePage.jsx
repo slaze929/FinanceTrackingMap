@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AnimatedEye from '../components/AnimatedEye';
+import AdjustableEye from '../components/AdjustableEye';
 import USMap from '../components/USMap';
 import DetailsPanel from '../components/DetailsPanel';
 import Header from '../components/Header';
@@ -25,9 +25,14 @@ function HomePage() {
       {/* Title with animated eye */}
       <header className="app-header">
         <Link to="/" className="title-link">
-          <h1 className="main-title">
-            Where are J<AnimatedEye />w?
-          </h1>
+          <div className="main-title-container">
+            <img
+              src="/where-are-jew-text.png"
+              alt="WHERE ARE JEW?"
+              className="main-title-image"
+            />
+            <AdjustableEye adjustMode={false} />
+          </div>
         </Link>
         <p className="subtitle">
           Track AIPAC lobby money by state

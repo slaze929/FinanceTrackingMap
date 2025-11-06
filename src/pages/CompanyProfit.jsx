@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import AnimatedEye from '../components/AnimatedEye';
+import PageTitle from '../components/PageTitle';
 import './CompanyProfit.css';
 
 const CompanyProfit = () => {
@@ -89,11 +89,7 @@ const CompanyProfit = () => {
   return (
     <div className="company-profit-container">
       <div className="company-profit-content">
-        <Link to="/" className="company-title-link">
-          <h1 className="company-title">
-            Where are J<AnimatedEye />w? - Company Profit
-          </h1>
-        </Link>
+        <PageTitle />
         <p className="company-subtitle">Defense Contractors Profiting from U.S. Military Aid to Israel</p>
 
         {/* Key Statistics */}

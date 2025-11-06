@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import AnimatedEye from '../components/AnimatedEye';
+import PageTitle from '../components/PageTitle';
 import './AidTimeline.css';
 
 const AidTimeline = () => {
@@ -226,11 +226,7 @@ const AidTimeline = () => {
   return (
     <div className="aid-timeline-container">
       <div className="aid-timeline-content">
-        <Link to="/" className="timeline-title-link">
-          <h1 className="timeline-title">
-            Where are J<AnimatedEye />w? - Aid Timeline
-          </h1>
-        </Link>
+        <PageTitle />
         <p className="timeline-subtitle">
           U.S. Aid to Israel vs. All Other Countries Combined • 1948-2025
         </p>

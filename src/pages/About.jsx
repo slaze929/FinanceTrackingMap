@@ -1,16 +1,12 @@
 import { Link } from 'react-router-dom';
-import AnimatedEye from '../components/AnimatedEye';
+import PageTitle from '../components/PageTitle';
 import './About.css';
 
 const About = () => {
   return (
     <div className="about-container">
       <div className="about-content">
-        <Link to="/" className="about-title-link">
-          <h1 className="about-title">
-            Where are J<AnimatedEye />w?
-          </h1>
-        </Link>
+        <PageTitle />
 
         <div className="about-text">
           <h2>About This Project</h2>
