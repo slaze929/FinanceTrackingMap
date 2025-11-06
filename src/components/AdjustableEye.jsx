@@ -4,7 +4,7 @@ import './AdjustableEye.css';
 
 const AdjustableEye = ({ adjustMode = true }) => {
   const [position, setPosition] = useState({ top: 47.0, right: 21.4 });
-  const [size, setSize] = useState({ width: 79, height: 79 });
+  const [size, setSize] = useState({ width: 69, height: 69 });
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });

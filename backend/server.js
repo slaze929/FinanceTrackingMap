@@ -5,6 +5,8 @@ import { dirname, join } from 'path';
 import fs from 'fs';
 import { checkContent, getErrorMessage } from './contentFilter.js';
 import { moderateContent, isObviouslyClean } from './aiModerator.js';
+import { scheduleDataUpdates, runStartupUpdate } from './cronJobs.js';
+import { updateCongressData } from './dataUpdater.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -164,8 +166,81 @@ app.get('/api/comments/:personKey/count', (req, res) => {
   }
 });
 
+// ==========================================
+// DATA UPDATE ENDPOINTS
+// ==========================================
+
+// Manual trigger for data update (protected endpoint)
+app.post('/api/update-data', async (req, res) => {
+  try {
+    // Simple API key protection
+    const apiKey = req.headers['x-api-key'] || req.query.apiKey;
+
+    if (!apiKey || apiKey !== process.env.UPDATE_API_KEY) {
+      return res.status(401).json({ error: 'Unauthorized - Invalid API key' });
+    }
+
+    console.log('🔄 Manual data update triggered via API');
+
+    // Run update in background and return immediately
+    res.json({
+      status: 'started',
+      message: 'Data update started. Check logs for progress.',
+      timestamp: new Date().toISOString()
+    });
+
+    // Execute update asynchronously
+    updateCongressData()
+      .then(result => {
+        console.log('✅ Manual update completed:', result);
+      })
+      .catch(error => {
+        console.error('❌ Manual update failed:', error);
+      });
+
+  } catch (error) {
+    console.error('Error triggering update:', error);
+    res.status(500).json({ error: 'Failed to trigger update' });
+  }
+});
+
+// Get last update status/timestamp
+app.get('/api/update-status', (req, res) => {
+  try {
+    const dataPath = join(__dirname, '..', 'src', 'data', 'congressData.json');
+
+    if (fs.existsSync(dataPath)) {
+      const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+      res.json({
+        lastUpdated: data.lastUpdated,
+        totalStates: data.totalStates,
+        totalCongresspeople: data.totalCongresspeople,
+        totalMoney: data.totalMoney,
+        source: data.source
+      });
+    } else {
+      res.status(404).json({ error: 'Data file not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching update status:', error);
+    res.status(500).json({ error: 'Failed to fetch update status' });
+  }
+});
+
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`🚀 Comment board API server running on http://localhost:${PORT}`);
   console.log(`📝 Database: ${DB_FILE}`);
+
+  // Initialize automated data updates
+  console.log('\n📅 Initializing automated data updates...');
+
+  // Schedule weekly updates
+  scheduleDataUpdates();
+
+  // Run startup update if enabled
+  await runStartupUpdate();
+
+  console.log('\n✅ Server fully initialized');
 });
