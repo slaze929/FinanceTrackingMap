@@ -1,0 +1,316 @@
+{
+  "citiesByState": {
+    "Alabama": [
+      { "name": "Montgomery", "coordinates": [-86.3077, 32.3668] },
+      { "name": "Birmingham", "coordinates": [-86.8025, 33.5207] },
+      { "name": "Mobile", "coordinates": [-88.0431, 30.6954] },
+      { "name": "Huntsville", "coordinates": [-86.5861, 34.7304] },
+      { "name": "Tuscaloosa", "coordinates": [-87.5692, 33.2098] }
+    ],
+    "Alaska": [
+      { "name": "Juneau", "coordinates": [-134.4197, 58.3019] },
+      { "name": "Anchorage", "coordinates": [-149.9003, 61.2181] },
+      { "name": "Fairbanks", "coordinates": [-147.7164, 64.8378] }
+    ],
+    "Arizona": [
+      { "name": "Phoenix", "coordinates": [-112.0740, 33.4484] },
+      { "name": "Tucson", "coordinates": [-110.9747, 32.2226] },
+      { "name": "Mesa", "coordinates": [-111.8315, 33.4152] },
+      { "name": "Scottsdale", "coordinates": [-111.9261, 33.4942] },
+      { "name": "Flagstaff", "coordinates": [-111.6513, 35.1983] }
+    ],
+    "Arkansas": [
+      { "name": "Little Rock", "coordinates": [-92.2896, 34.7465] },
+      { "name": "Fort Smith", "coordinates": [-94.3985, 35.3859] },
+      { "name": "Fayetteville", "coordinates": [-94.1574, 36.0626] },
+      { "name": "Bentonville", "coordinates": [-94.2088, 36.3729] }
+    ],
+    "California": [
+      { "name": "Sacramento", "coordinates": [-121.4944, 38.5816] },
+      { "name": "Los Angeles", "coordinates": [-118.2437, 34.0522] },
+      { "name": "San Francisco", "coordinates": [-122.4194, 37.7749] },
+      { "name": "San Diego", "coordinates": [-117.1611, 32.7157] },
+      { "name": "San Jose", "coordinates": [-121.8863, 37.3382] },
+      { "name": "Oakland", "coordinates": [-122.2711, 37.8044] },
+      { "name": "Fresno", "coordinates": [-119.7871, 36.7378] },
+      { "name": "Long Beach", "coordinates": [-118.1937, 33.7701] }
+    ],
+    "Colorado": [
+      { "name": "Denver", "coordinates": [-104.9903, 39.7392] },
+      { "name": "Colorado Springs", "coordinates": [-104.8214, 38.8339] },
+      { "name": "Aurora", "coordinates": [-104.8319, 39.7294] },
+      { "name": "Boulder", "coordinates": [-105.2705, 40.0150] },
+      { "name": "Fort Collins", "coordinates": [-105.0844, 40.5853] }
+    ],
+    "Connecticut": [
+      { "name": "Hartford", "coordinates": [-72.6851, 41.7658] },
+      { "name": "New Haven", "coordinates": [-72.9279, 41.3083] },
+      { "name": "Stamford", "coordinates": [-73.5387, 41.0534] },
+      { "name": "Bridgeport", "coordinates": [-73.2048, 41.1865] }
+    ],
+    "Delaware": [
+      { "name": "Dover", "coordinates": [-75.5277, 39.1582] },
+      { "name": "Wilmington", "coordinates": [-75.5398, 39.7391] },
+      { "name": "Newark", "coordinates": [-75.7496, 39.6837] }
+    ],
+    "Florida": [
+      { "name": "Tallahassee", "coordinates": [-84.2807, 30.4383] },
+      { "name": "Jacksonville", "coordinates": [-81.6557, 30.3322] },
+      { "name": "Miami", "coordinates": [-80.1918, 25.7617] },
+      { "name": "Tampa", "coordinates": [-82.4572, 27.9506] },
+      { "name": "Orlando", "coordinates": [-81.3792, 28.5383] },
+      { "name": "St. Petersburg", "coordinates": [-82.6403, 27.7676] },
+      { "name": "Fort Lauderdale", "coordinates": [-80.1373, 26.1224] },
+      { "name": "Gainesville", "coordinates": [-82.3248, 29.6516] }
+    ],
+    "Georgia": [
+      { "name": "Atlanta", "coordinates": [-84.3880, 33.7490] },
+      { "name": "Savannah", "coordinates": [-81.0998, 32.0809] },
+      { "name": "Augusta", "coordinates": [-81.9748, 33.4735] },
+      { "name": "Columbus", "coordinates": [-84.9877, 32.4609] },
+      { "name": "Macon", "coordinates": [-83.6324, 32.8407] }
+    ],
+    "Hawaii": [
+      { "name": "Honolulu", "coordinates": [-157.8583, 21.3099] },
+      { "name": "Hilo", "coordinates": [-155.0844, 19.7297] }
+    ],
+    "Idaho": [
+      { "name": "Boise", "coordinates": [-116.2023, 43.6150] },
+      { "name": "Idaho Falls", "coordinates": [-112.0341, 43.4666] },
+      { "name": "Pocatello", "coordinates": [-112.4450, 42.8713] }
+    ],
+    "Illinois": [
+      { "name": "Springfield", "coordinates": [-89.6501, 39.7817] },
+      { "name": "Chicago", "coordinates": [-87.6298, 41.8781] },
+      { "name": "Aurora", "coordinates": [-88.3200, 41.7606] },
+      { "name": "Naperville", "coordinates": [-88.1535, 41.7508] },
+      { "name": "Rockford", "coordinates": [-89.0940, 42.2711] }
+    ],
+    "Indiana": [
+      { "name": "Indianapolis", "coordinates": [-86.1581, 39.7684] },
+      { "name": "Fort Wayne", "coordinates": [-85.1394, 41.0793] },
+      { "name": "Evansville", "coordinates": [-87.5711, 37.9716] },
+      { "name": "South Bend", "coordinates": [-86.2520, 41.6764] }
+    ],
+    "Iowa": [
+      { "name": "Des Moines", "coordinates": [-93.6091, 41.5868] },
+      { "name": "Cedar Rapids", "coordinates": [-91.6656, 41.9779] },
+      { "name": "Davenport", "coordinates": [-90.5776, 41.5236] },
+      { "name": "Iowa City", "coordinates": [-91.5302, 41.6611] }
+    ],
+    "Kansas": [
+      { "name": "Topeka", "coordinates": [-95.6890, 39.0473] },
+      { "name": "Wichita", "coordinates": [-97.3301, 37.6872] },
+      { "name": "Kansas City", "coordinates": [-94.6275, 39.1142] },
+      { "name": "Overland Park", "coordinates": [-94.6708, 38.9822] }
+    ],
+    "Kentucky": [
+      { "name": "Frankfort", "coordinates": [-84.8733, 38.2009] },
+      { "name": "Louisville", "coordinates": [-85.7585, 38.2527] },
+      { "name": "Lexington", "coordinates": [-84.5037, 38.0406] },
+      { "name": "Bowling Green", "coordinates": [-86.4436, 36.9903] }
+    ],
+    "Louisiana": [
+      { "name": "Baton Rouge", "coordinates": [-91.1871, 30.4515] },
+      { "name": "New Orleans", "coordinates": [-90.0715, 29.9511] },
+      { "name": "Shreveport", "coordinates": [-93.7502, 32.5252] },
+      { "name": "Lafayette", "coordinates": [-92.0198, 30.2241] }
+    ],
+    "Maine": [
+      { "name": "Augusta", "coordinates": [-69.7795, 44.3106] },
+      { "name": "Portland", "coordinates": [-70.2553, 43.6591] },
+      { "name": "Bangor", "coordinates": [-68.7778, 44.8012] }
+    ],
+    "Maryland": [
+      { "name": "Annapolis", "coordinates": [-76.4922, 38.9784] },
+      { "name": "Baltimore", "coordinates": [-76.6122, 39.2904] },
+      { "name": "Frederick", "coordinates": [-77.4105, 39.4143] },
+      { "name": "Rockville", "coordinates": [-77.1528, 39.0840] }
+    ],
+    "Massachusetts": [
+      { "name": "Boston", "coordinates": [-71.0589, 42.3601] },
+      { "name": "Worcester", "coordinates": [-71.8023, 42.2626] },
+      { "name": "Springfield", "coordinates": [-72.5395, 42.1015] },
+      { "name": "Cambridge", "coordinates": [-71.1097, 42.3736] }
+    ],
+    "Michigan": [
+      { "name": "Lansing", "coordinates": [-84.5555, 42.7325] },
+      { "name": "Detroit", "coordinates": [-83.0458, 42.3314] },
+      { "name": "Grand Rapids", "coordinates": [-85.6681, 42.9634] },
+      { "name": "Ann Arbor", "coordinates": [-83.7430, 42.2808] },
+      { "name": "Flint", "coordinates": [-83.6875, 43.0125] }
+    ],
+    "Minnesota": [
+      { "name": "St. Paul", "coordinates": [-93.0900, 44.9537] },
+      { "name": "Minneapolis", "coordinates": [-93.2650, 44.9778] },
+      { "name": "Rochester", "coordinates": [-92.4802, 44.0121] },
+      { "name": "Duluth", "coordinates": [-92.1005, 46.7867] }
+    ],
+    "Mississippi": [
+      { "name": "Jackson", "coordinates": [-90.1848, 32.2988] },
+      { "name": "Gulfport", "coordinates": [-89.0928, 30.3674] },
+      { "name": "Biloxi", "coordinates": [-88.8853, 30.3960] },
+      { "name": "Hattiesburg", "coordinates": [-89.2903, 31.3271] }
+    ],
+    "Missouri": [
+      { "name": "Jefferson City", "coordinates": [-92.1735, 38.5767] },
+      { "name": "St. Louis", "coordinates": [-90.1994, 38.6270] },
+      { "name": "Kansas City", "coordinates": [-94.5786, 39.0997] },
+      { "name": "Springfield", "coordinates": [-93.2923, 37.2090] },
+      { "name": "Columbia", "coordinates": [-92.3341, 38.9517] }
+    ],
+    "Montana": [
+      { "name": "Helena", "coordinates": [-112.0391, 46.5891] },
+      { "name": "Billings", "coordinates": [-108.5007, 45.7833] },
+      { "name": "Missoula", "coordinates": [-113.9940, 46.8721] },
+      { "name": "Great Falls", "coordinates": [-111.3008, 47.5002] }
+    ],
+    "Nebraska": [
+      { "name": "Lincoln", "coordinates": [-96.6852, 40.8136] },
+      { "name": "Omaha", "coordinates": [-95.9345, 41.2565] },
+      { "name": "Bellevue", "coordinates": [-95.9145, 41.1544] }
+    ],
+    "Nevada": [
+      { "name": "Carson City", "coordinates": [-119.7674, 39.1638] },
+      { "name": "Las Vegas", "coordinates": [-115.1398, 36.1699] },
+      { "name": "Reno", "coordinates": [-119.8138, 39.5296] },
+      { "name": "Henderson", "coordinates": [-114.9819, 36.0395] }
+    ],
+    "New Hampshire": [
+      { "name": "Concord", "coordinates": [-71.5376, 43.2081] },
+      { "name": "Manchester", "coordinates": [-71.5376, 42.9956] },
+      { "name": "Nashua", "coordinates": [-71.4673, 42.7654] }
+    ],
+    "New Jersey": [
+      { "name": "Trenton", "coordinates": [-74.7429, 40.2206] },
+      { "name": "Newark", "coordinates": [-74.1724, 40.7357] },
+      { "name": "Jersey City", "coordinates": [-74.0776, 40.7178] },
+      { "name": "Paterson", "coordinates": [-74.1718, 40.9168] }
+    ],
+    "New Mexico": [
+      { "name": "Santa Fe", "coordinates": [-105.9378, 35.6870] },
+      { "name": "Albuquerque", "coordinates": [-106.6504, 35.0844] },
+      { "name": "Las Cruces", "coordinates": [-106.7893, 32.3199] }
+    ],
+    "New York": [
+      { "name": "Albany", "coordinates": [-73.7562, 42.6526] },
+      { "name": "New York City", "coordinates": [-74.0060, 40.7128] },
+      { "name": "Buffalo", "coordinates": [-78.8784, 42.8864] },
+      { "name": "Rochester", "coordinates": [-77.6088, 43.1566] },
+      { "name": "Syracuse", "coordinates": [-76.1474, 43.0481] },
+      { "name": "Yonkers", "coordinates": [-73.8987, 40.9312] }
+    ],
+    "North Carolina": [
+      { "name": "Raleigh", "coordinates": [-78.6382, 35.7796] },
+      { "name": "Charlotte", "coordinates": [-80.8431, 35.2271] },
+      { "name": "Durham", "coordinates": [-78.8986, 35.9940] },
+      { "name": "Greensboro", "coordinates": [-79.7920, 36.0726] },
+      { "name": "Winston-Salem", "coordinates": [-80.2442, 36.0999] },
+      { "name": "Asheville", "coordinates": [-82.5515, 35.5951] }
+    ],
+    "North Dakota": [
+      { "name": "Bismarck", "coordinates": [-100.7837, 46.8083] },
+      { "name": "Fargo", "coordinates": [-96.7898, 46.8772] },
+      { "name": "Grand Forks", "coordinates": [-97.0329, 47.9253] }
+    ],
+    "Ohio": [
+      { "name": "Columbus", "coordinates": [-82.9988, 39.9612] },
+      { "name": "Cleveland", "coordinates": [-81.6944, 41.4993] },
+      { "name": "Cincinnati", "coordinates": [-84.5120, 39.1031] },
+      { "name": "Toledo", "coordinates": [-83.5379, 41.6528] },
+      { "name": "Akron", "coordinates": [-81.5190, 41.0814] },
+      { "name": "Dayton", "coordinates": [-84.1916, 39.7589] }
+    ],
+    "Oklahoma": [
+      { "name": "Oklahoma City", "coordinates": [-97.5164, 35.4676] },
+      { "name": "Tulsa", "coordinates": [-95.9928, 36.1540] },
+      { "name": "Norman", "coordinates": [-97.4395, 35.2226] }
+    ],
+    "Oregon": [
+      { "name": "Salem", "coordinates": [-123.0351, 44.9429] },
+      { "name": "Portland", "coordinates": [-122.6765, 45.5152] },
+      { "name": "Eugene", "coordinates": [-123.0868, 44.0521] },
+      { "name": "Bend", "coordinates": [-121.3153, 44.0582] }
+    ],
+    "Pennsylvania": [
+      { "name": "Harrisburg", "coordinates": [-76.8844, 40.2732] },
+      { "name": "Philadelphia", "coordinates": [-75.1652, 39.9526] },
+      { "name": "Pittsburgh", "coordinates": [-79.9959, 40.4406] },
+      { "name": "Allentown", "coordinates": [-75.4902, 40.6084] },
+      { "name": "Erie", "coordinates": [-80.0852, 42.1292] }
+    ],
+    "Rhode Island": [
+      { "name": "Providence", "coordinates": [-71.4128, 41.8240] },
+      { "name": "Warwick", "coordinates": [-71.4162, 41.7001] },
+      { "name": "Cranston", "coordinates": [-71.4774, 41.7798] }
+    ],
+    "South Carolina": [
+      { "name": "Columbia", "coordinates": [-81.0348, 34.0007] },
+      { "name": "Charleston", "coordinates": [-79.9311, 32.7765] },
+      { "name": "Greenville", "coordinates": [-82.3940, 34.8526] },
+      { "name": "Myrtle Beach", "coordinates": [-78.8867, 33.6891] }
+    ],
+    "South Dakota": [
+      { "name": "Pierre", "coordinates": [-100.3537, 44.3683] },
+      { "name": "Sioux Falls", "coordinates": [-96.7003, 43.5446] },
+      { "name": "Rapid City", "coordinates": [-103.2310, 44.0805] }
+    ],
+    "Tennessee": [
+      { "name": "Nashville", "coordinates": [-86.7816, 36.1627] },
+      { "name": "Memphis", "coordinates": [-90.0490, 35.1495] },
+      { "name": "Knoxville", "coordinates": [-83.9207, 35.9606] },
+      { "name": "Chattanooga", "coordinates": [-85.3097, 35.0456] },
+      { "name": "Franklin", "coordinates": [-86.8689, 35.9251] },
+      { "name": "Murfreesboro", "coordinates": [-86.3903, 35.8456] },
+      { "name": "Clarksville", "coordinates": [-87.3595, 36.5298] }
+    ],
+    "Texas": [
+      { "name": "Austin", "coordinates": [-97.7431, 30.2672] },
+      { "name": "Houston", "coordinates": [-95.3698, 29.7604] },
+      { "name": "Dallas", "coordinates": [-96.7970, 32.7767] },
+      { "name": "San Antonio", "coordinates": [-98.4936, 29.4241] },
+      { "name": "Fort Worth", "coordinates": [-97.3308, 32.7555] },
+      { "name": "El Paso", "coordinates": [-106.4850, 31.7619] },
+      { "name": "Arlington", "coordinates": [-97.1081, 32.7357] },
+      { "name": "Plano", "coordinates": [-96.6989, 33.0198] }
+    ],
+    "Utah": [
+      { "name": "Salt Lake City", "coordinates": [-111.8910, 40.7608] },
+      { "name": "Provo", "coordinates": [-111.6585, 40.2338] },
+      { "name": "West Valley City", "coordinates": [-112.0011, 40.6916] }
+    ],
+    "Vermont": [
+      { "name": "Montpelier", "coordinates": [-72.5754, 44.2601] },
+      { "name": "Burlington", "coordinates": [-73.2121, 44.4759] }
+    ],
+    "Virginia": [
+      { "name": "Richmond", "coordinates": [-77.4360, 37.5407] },
+      { "name": "Virginia Beach", "coordinates": [-75.9780, 36.8529] },
+      { "name": "Norfolk", "coordinates": [-76.2859, 36.8508] },
+      { "name": "Arlington", "coordinates": [-77.1067, 38.8816] },
+      { "name": "Alexandria", "coordinates": [-77.0469, 38.8048] }
+    ],
+    "Washington": [
+      { "name": "Olympia", "coordinates": [-122.9007, 47.0379] },
+      { "name": "Seattle", "coordinates": [-122.3321, 47.6062] },
+      { "name": "Spokane", "coordinates": [-117.4260, 47.6588] },
+      { "name": "Tacoma", "coordinates": [-122.4443, 47.2529] },
+      { "name": "Bellevue", "coordinates": [-122.2015, 47.6101] }
+    ],
+    "West Virginia": [
+      { "name": "Charleston", "coordinates": [-81.6326, 38.3498] },
+      { "name": "Huntington", "coordinates": [-82.4452, 38.4192] },
+      { "name": "Morgantown", "coordinates": [-79.9559, 39.6295] }
+    ],
+    "Wisconsin": [
+      { "name": "Madison", "coordinates": [-89.4012, 43.0731] },
+      { "name": "Milwaukee", "coordinates": [-87.9065, 43.0389] },
+      { "name": "Green Bay", "coordinates": [-88.0133, 44.5133] }
+    ],
+    "Wyoming": [
+      { "name": "Cheyenne", "coordinates": [-104.8202, 41.1400] },
+      { "name": "Casper", "coordinates": [-106.3131, 42.8666] },
+      { "name": "Laramie", "coordinates": [-105.5911, 41.3114] }
+    ]
+  }
+}

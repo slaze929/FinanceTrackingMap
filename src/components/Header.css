@@ -1,0 +1,82 @@
+.header-nav {
+  position: absolute;
+  bottom: 8px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+}
+
+.x-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.x-link:hover {
+  opacity: 0.7;
+}
+
+.x-logo {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 0 4px rgba(139, 0, 0, 0.5));
+}
+
+.ca-button {
+  background: none;
+  border: none;
+  color: #888;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(10px, 1.2vw, 13px);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+  white-space: nowrap;
+  outline: none;
+}
+
+.ca-button:hover {
+  color: #aaa;
+}
+
+.ca-button:active {
+  transform: scale(0.98);
+}
+
+.ca-button:focus {
+  outline: none;
+}
+
+.about-link {
+  color: #888;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(10px, 1.2vw, 13px);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.about-link:hover {
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .header-nav {
+    right: 15px;
+    gap: 15px;
+  }
+
+  .x-logo {
+    width: 16px;
+    height: 16px;
+  }
+}

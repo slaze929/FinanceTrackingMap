@@ -1,64 +1,44 @@
-import { useState } from 'react';
-import AnimatedEye from './components/AnimatedEye';
-import USMap from './components/USMap';
-import DetailsPanel from './components/DetailsPanel';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import HomePage from './pages/HomePage';
+import About from './pages/About';
 import './App.css';
 
-function App() {
-  const [selectedState, setSelectedState] = useState(null);
-  const [stateData, setStateData] = useState(null);
+// Animated routes wrapper
+function AnimatedRoutes() {
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [transitionStage, setTransitionStage] = useState('fadeIn');
 
-  const handleStateSelect = (stateName, data) => {
-    setSelectedState(stateName);
-    setStateData(data);
-  };
-
-  const handleClosePanel = () => {
-    setSelectedState(null);
-    setStateData(null);
-  };
+  useEffect(() => {
+    if (location.pathname !== displayLocation.pathname) {
+      setTransitionStage('fadeOut');
+    }
+  }, [location, displayLocation]);
 
   return (
-    <div className="app-container">
-      {/* Title with animated eye */}
-      <header className="app-header">
-        <h1 className="main-title">
-          Where are J<AnimatedEye />w?
-        </h1>
-        <p className="subtitle">
-          Track AIPAC lobby money by state
-        </p>
-      </header>
-
-      {/* US Map */}
-      <main className="map-container">
-        <USMap onStateSelect={handleStateSelect} />
-      </main>
-
-      {/* Details Panel */}
-      <DetailsPanel
-        stateName={selectedState}
-        stateData={stateData}
-        onClose={handleClosePanel}
-      />
-
-      {/* Footer */}
-      <footer className="app-footer">
-        <p>
-          Data source:{' '}
-          <a
-            href="https://www.trackaipac.com/congress"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            TrackAIPAC.com
-          </a>
-        </p>
-        <p className="disclaimer">
-          Click on any state to view congresspeople and their lobby totals
-        </p>
-      </footer>
+    <div
+      className={`page-transition ${transitionStage}`}
+      onAnimationEnd={() => {
+        if (transitionStage === 'fadeOut') {
+          setTransitionStage('fadeIn');
+          setDisplayLocation(location);
+        }
+      }}
+    >
+      <Routes location={displayLocation}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AnimatedRoutes />
+    </Router>
   );
 }
 
