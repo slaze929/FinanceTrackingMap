@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import './DetailsPanel.css';
+import votingRecordsData from '../data/votingRecords.json';
 
 const DetailsPanel = ({ stateName, stateData, onClose }) => {
   const panelRef = useRef(null);
@@ -99,6 +100,12 @@ const DetailsPanel = ({ stateName, stateData, onClose }) => {
               onClick={() => setActiveTab('districts')}
             >
               Districts
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'voting' ? 'active' : ''}`}
+              onClick={() => setActiveTab('voting')}
+            >
+              Voting Record
             </button>
           </div>
         </div>
@@ -345,6 +352,112 @@ const DetailsPanel = ({ stateName, stateData, onClose }) => {
                 <p className="districts-source">
                   Source: State Department FMS data, Defense contractor public filings
                 </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Voting Record Tab Content */}
+        {activeTab === 'voting' && (
+          <div className="voting-content">
+            <div className="voting-section">
+              <h3>Israel-Related Congressional Votes</h3>
+
+              <div className="voting-intro">
+                <p>
+                  Track how {stateName} representatives voted on key Israel-related legislation
+                  and see the correlation with lobby funding they received.
+                </p>
+              </div>
+
+              {/* Correlation Analysis */}
+              <div className="correlation-box">
+                <h4>Funding vs. Voting Pattern Analysis</h4>
+                <div className="correlation-stats">
+                  <div className="correlation-stat">
+                    <div className="stat-label">Total AIPAC Funding to {stateName}</div>
+                    <div className="stat-value">${stateData.totalAmount.toLocaleString()}</div>
+                  </div>
+                  <div className="correlation-stat">
+                    <div className="stat-label">Representatives Tracked</div>
+                    <div className="stat-value">{stateData.congresspeople.length}</div>
+                  </div>
+                  <div className="correlation-stat">
+                    <div className="stat-label">Major Votes Tracked</div>
+                    <div className="stat-value">{votingRecordsData.votes.length}</div>
+                  </div>
+                </div>
+                <div className="correlation-note">
+                  <strong>Analysis Note:</strong> Research shows strong correlation between
+                  pro-Israel lobby funding and voting patterns. Members receiving higher amounts
+                  of AIPAC funding consistently vote in favor of military aid and weapons sales to Israel.
+                </div>
+              </div>
+
+              {/* Major Votes List */}
+              <div className="major-votes-section">
+                <h4>Major Israel-Related Votes (2023-2024)</h4>
+                <div className="votes-list">
+                  {votingRecordsData.votes.map((vote, index) => (
+                    <div key={vote.id} className="vote-card">
+                      <div className="vote-header">
+                        <div className="vote-title-section">
+                          <h5>{vote.title}</h5>
+                          <div className="vote-meta">
+                            <span className="vote-bill">{vote.billNumber}</span>
+                            <span className="vote-date">{new Date(vote.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                            <span className={`vote-result ${vote.result.toLowerCase()}`}>{vote.result}</span>
+                          </div>
+                        </div>
+                        <div className="vote-totals">
+                          <div className="vote-total-item yea">
+                            <span className="vote-total-label">Yea</span>
+                            <span className="vote-total-number">{vote.voteTotals.yea}</span>
+                          </div>
+                          <div className="vote-total-item nay">
+                            <span className="vote-total-label">Nay</span>
+                            <span className="vote-total-number">{vote.voteTotals.nay}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="vote-description">{vote.description}</p>
+                      {vote.significance && (
+                        <div className="vote-significance">
+                          <strong>Significance:</strong> {vote.significance}
+                        </div>
+                      )}
+                      <div className="vote-footer">
+                        <span className="vote-chamber">{vote.chamber}</span>
+                        <span className="vote-roll">Roll Call: {vote.rollCallNumber}</span>
+                        <a
+                          href={vote.congressGovUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="vote-source-link"
+                        >
+                          View on Congress.gov →
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Data Sources */}
+              <div className="voting-info-box">
+                <h4>Data Sources & Methodology</h4>
+                <div className="source-info">
+                  <p><strong>Primary Source:</strong> {votingRecordsData.source}</p>
+                  <p><strong>Additional Sources:</strong></p>
+                  <ul>
+                    {votingRecordsData.additionalSources.map((source, i) => (
+                      <li key={i}>{source}</li>
+                    ))}
+                  </ul>
+                  <p><strong>Methodology:</strong> {votingRecordsData.notes.methodology}</p>
+                  <p className="data-integrity"><strong>Data Integrity:</strong> {votingRecordsData.notes.dataIntegrity}</p>
+                  <p className="data-updated">Last Updated: {votingRecordsData.lastUpdated}</p>
+                </div>
               </div>
             </div>
           </div>

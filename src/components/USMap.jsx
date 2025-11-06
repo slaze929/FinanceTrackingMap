@@ -109,15 +109,36 @@ const USMap = ({ onStateSelect }) => {
     // Limit maximum cities based on zoom
     const maxCities = Math.min(Math.floor(roundedZoom * 3), 30);
 
-    // Collision detection
-    const baseThreshold = 0.5;
+    // Enhanced collision detection with label positioning
+    const baseThreshold = 1.2; // Further increased for better spacing
     const zoomFactor = Math.max(0.1, 1 / roundedZoom);
     const collisionThreshold = baseThreshold * zoomFactor;
 
+    // Calculate font size once for collision detection (with strict cap)
+    const baseFontSize = 1.5;
+    const maxFontSize = 3; // Reduced cap to prevent large overlapping text
+    const fontSize = Math.min(baseFontSize + (roundedZoom - 3) * 0.2, maxFontSize);
+
+    // Label positioning options: top, topRight, right, bottomRight, bottom, bottomLeft, left, topLeft
+    const labelPositions = [
+      { dx: 0, dy: -1.2, anchor: 'middle', name: 'top' },
+      { dx: 0, dy: 1.2, anchor: 'middle', name: 'bottom' },
+      { dx: 1.2, dy: 0, anchor: 'start', name: 'right' },
+      { dx: -1.2, dy: 0, anchor: 'end', name: 'left' },
+      { dx: 0.9, dy: -0.9, anchor: 'start', name: 'topRight' },
+      { dx: 0.9, dy: 0.9, anchor: 'start', name: 'bottomRight' },
+      { dx: -0.9, dy: 0.9, anchor: 'end', name: 'bottomLeft' },
+      { dx: -0.9, dy: -0.9, anchor: 'end', name: 'topLeft' }
+    ];
+
     const visible = [];
+    const labelBounds = []; // Store bounding boxes of labels
+
     for (let i = 0; i < cities.length && visible.length < maxCities; i++) {
       const city = cities[i];
-      const hasCollision = visible.some((visibleCity) => {
+
+      // Check collision with city markers
+      const hasMarkerCollision = visible.some((visibleCity) => {
         const distance = Math.sqrt(
           Math.pow(city.coordinates[0] - visibleCity.coordinates[0], 2) +
           Math.pow(city.coordinates[1] - visibleCity.coordinates[1], 2)
@@ -125,8 +146,74 @@ const USMap = ({ onStateSelect }) => {
         return distance < collisionThreshold;
       });
 
-      if (!hasCollision) {
-        visible.push(city);
+      if (!hasMarkerCollision) {
+        // Find best label position that doesn't overlap with existing labels
+        let bestPosition = labelPositions[0];
+        let foundPosition = false;
+
+        for (const position of labelPositions) {
+          // More accurate label dimension estimation
+          // Each character is roughly 0.6 * fontSize in width for this font
+          const charWidth = fontSize * 0.6;
+          const labelWidth = (city.name.length * charWidth) / roundedZoom;
+          const labelHeight = (fontSize * 1.2) / roundedZoom; // Add line height
+
+          // Add padding around labels for better spacing
+          const padding = 0.3 / roundedZoom;
+          const totalWidth = labelWidth + padding * 2;
+          const totalHeight = labelHeight + padding * 2;
+
+          // Calculate offset distance from marker (accounting for label size)
+          const offsetDistance = Math.max(totalWidth, totalHeight) * 1.5;
+          const labelX = city.coordinates[0] + (position.dx * offsetDistance);
+          const labelY = city.coordinates[1] + (position.dy * offsetDistance);
+
+          // Calculate bounding box based on text anchor
+          let boundX, boundY;
+          if (position.anchor === 'middle') {
+            boundX = labelX - totalWidth / 2;
+            boundY = labelY - totalHeight / 2;
+          } else if (position.anchor === 'start') {
+            boundX = labelX;
+            boundY = labelY - totalHeight / 2;
+          } else { // 'end'
+            boundX = labelX - totalWidth;
+            boundY = labelY - totalHeight / 2;
+          }
+
+          // Check if this position overlaps with any existing labels
+          const overlaps = labelBounds.some((bounds) => {
+            const horizontalOverlap =
+              boundX < bounds.x + bounds.width &&
+              boundX + totalWidth > bounds.x;
+            const verticalOverlap =
+              boundY < bounds.y + bounds.height &&
+              boundY + totalHeight > bounds.y;
+            return horizontalOverlap && verticalOverlap;
+          });
+
+          if (!overlaps) {
+            bestPosition = position;
+            foundPosition = true;
+
+            // Store this label's bounding box
+            labelBounds.push({
+              x: boundX,
+              y: boundY,
+              width: totalWidth,
+              height: totalHeight
+            });
+            break;
+          }
+        }
+
+        // Only add city if we found a non-overlapping position
+        if (foundPosition) {
+          visible.push({
+            ...city,
+            labelPosition: bestPosition
+          });
+        }
       }
     }
 
@@ -139,7 +226,7 @@ const USMap = ({ onStateSelect }) => {
         {`
           .city-marker {
             opacity: 0;
-            animation: cityFadeIn 0.3s ease-out forwards;
+            animation: cityFadeIn 0.4s ease-out forwards;
           }
 
           @keyframes cityFadeIn {
@@ -149,7 +236,24 @@ const USMap = ({ onStateSelect }) => {
           }
 
           .city-text {
-            transition: font-size 0.2s ease-out;
+            transition: font-size 0.2s ease-out, x 0.2s ease-out, y 0.2s ease-out;
+          }
+
+          line.city-marker {
+            transition: opacity 0.3s ease-out;
+          }
+
+          /* Ensure hovered states render on top */
+          .rsm-geography {
+            pointer-events: all;
+          }
+
+          .rsm-geography:hover {
+            filter: drop-shadow(0 4px 8px rgba(255, 68, 68, 0.6));
+          }
+
+          .rsm-geography.state-hovered {
+            filter: drop-shadow(0 4px 8px rgba(255, 68, 68, 0.6)) !important;
           }
         `}
       </style>
@@ -193,8 +297,17 @@ const USMap = ({ onStateSelect }) => {
             maxZoom={1000}
           >
             <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
+            {({ geographies }) => {
+              // Sort geographies to render hovered/selected states last (on top)
+              const sortedGeographies = [...geographies].sort((a, b) => {
+                const aName = a.properties.name;
+                const bName = b.properties.name;
+                if (aName === hoveredState || aName === selectedState) return 1;
+                if (bName === hoveredState || bName === selectedState) return -1;
+                return 0;
+              });
+
+              return sortedGeographies.map((geo) => {
                 const stateName = geo.properties.name;
                 const fillColor = getStateColor(stateName);
                 const isHovered = hoveredState === stateName;
@@ -204,6 +317,7 @@ const USMap = ({ onStateSelect }) => {
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
+                    className={isHovered ? 'state-hovered' : ''}
                     ref={(el) => (stateRefs.current[stateName] = el)}
                     onMouseEnter={() => handleMouseEnter(geo, stateName)}
                     onMouseLeave={() => handleMouseLeave(stateName)}
@@ -212,74 +326,117 @@ const USMap = ({ onStateSelect }) => {
                       default: {
                         fill: fillColor,
                         stroke: isSelected ? '#ff0000' : '#333333',
-                        strokeWidth: isSelected ? 2.5 : 1.5,
+                        strokeWidth: isSelected ? 2.5 : 0.5,
+                        strokeLinejoin: 'round',
+                        strokeLinecap: 'round',
                         outline: 'none',
                         cursor: 'pointer',
-                        transition: 'all 0.2s'
+                        transition: 'all 0.2s',
+                        vectorEffect: 'non-scaling-stroke',
+                        paintOrder: 'fill'
                       },
                       hover: {
                         fill: fillColor,
                         stroke: '#ff4444',
-                        strokeWidth: 2,
+                        strokeWidth: 2.5,
+                        strokeLinejoin: 'round',
+                        strokeLinecap: 'round',
                         outline: 'none',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        vectorEffect: 'non-scaling-stroke',
+                        paintOrder: 'fill'
                       },
                       pressed: {
                         fill: fillColor,
                         stroke: '#ff0000',
-                        strokeWidth: 2.5,
-                        outline: 'none'
+                        strokeWidth: 3,
+                        strokeLinejoin: 'round',
+                        strokeLinecap: 'round',
+                        outline: 'none',
+                        vectorEffect: 'non-scaling-stroke',
+                        paintOrder: 'fill'
                       }
                     }}
                   />
                 );
-              })
-            }
+              });
+            }}
             </Geographies>
 
             {/* City names and markers - only show when zoomed in on a specific state */}
             {visibleCities.length > 0 && (() => {
-              // Dynamic font size calculation based on zoom - with strict maximum
+              // Dynamic font size calculation based on zoom - with strict maximum (matching collision detection)
               const baseFontSize = 1.5;
-              const maxFontSize = 4; // Cap at 4px to prevent lag
-              const fontSize = Math.min(baseFontSize + (roundedZoom - 3) * 0.3, maxFontSize);
+              const maxFontSize = 3; // Reduced cap to prevent large overlapping text
+              const fontSize = Math.min(baseFontSize + (roundedZoom - 3) * 0.2, maxFontSize);
               const strokeWidth = fontSize * 0.08;
-              const maxDotSize = 1.5; // Cap dot size too
-              const dotSize = Math.min(0.8 + (roundedZoom - 3) * 0.1, maxDotSize);
+              const maxDotSize = 1.2; // Reduced dot size
+              const dotSize = Math.min(0.6 + (roundedZoom - 3) * 0.08, maxDotSize);
 
-              return visibleCities.map((city, index) => (
-                <Marker key={`${city.name}-${index}`} coordinates={city.coordinates}>
-                  {/* City dot marker */}
-                  <circle
-                    className="city-marker"
-                    r={dotSize}
-                    fill="#000000"
-                    stroke="#333333"
-                    strokeWidth={0.2}
-                  />
+              return visibleCities.map((city, index) => {
+                const position = city.labelPosition || { dx: 0, dy: -1.2, anchor: 'middle' };
 
-                  {/* City label */}
-                  <text
-                    className="city-marker city-text"
-                    textAnchor="middle"
-                    y={-dotSize - 1}
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontSize: `${fontSize}px`,
-                      fill: '#888',
-                      fontWeight: 400,
-                      letterSpacing: '0.3px',
-                      stroke: '#0a0a0a',
-                      strokeWidth: `${strokeWidth}px`,
-                      paintOrder: 'stroke',
-                      pointerEvents: 'none',
-                      textTransform: 'uppercase'
-                    }}
-                  >
-                    {city.name}
-                  </text>
-                </Marker>
-              ));
+                // Calculate offset distance matching collision detection
+                const charWidth = fontSize * 0.6;
+                const labelWidth = (city.name.length * charWidth) / roundedZoom;
+                const labelHeight = (fontSize * 1.2) / roundedZoom;
+                const padding = 0.3 / roundedZoom;
+                const totalWidth = labelWidth + padding * 2;
+                const totalHeight = labelHeight + padding * 2;
+                const offsetDistance = Math.max(totalWidth, totalHeight) * 1.5;
+
+                const labelX = position.dx * offsetDistance;
+                const labelY = position.dy * offsetDistance;
+
+                return (
+                  <Marker key={`${city.name}-${index}`} coordinates={city.coordinates}>
+                    {/* City dot marker */}
+                    <circle
+                      className="city-marker"
+                      r={dotSize}
+                      fill="#000000"
+                      stroke="#333333"
+                      strokeWidth={0.2}
+                    />
+
+                    {/* Connecting line from dot to label (subtle) */}
+                    {(Math.abs(position.dx) > 0.5 || Math.abs(position.dy) > 0.5) && (
+                      <line
+                        x1={0}
+                        y1={0}
+                        x2={labelX * 0.5}
+                        y2={labelY * 0.5}
+                        stroke="#444444"
+                        strokeWidth={0.12}
+                        className="city-marker"
+                        opacity={0.4}
+                      />
+                    )}
+
+                    {/* City label */}
+                    <text
+                      className="city-marker city-text"
+                      textAnchor={position.anchor}
+                      x={labelX}
+                      y={labelY}
+                      style={{
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: `${fontSize}px`,
+                        fill: '#888',
+                        fontWeight: 400,
+                        letterSpacing: '0.3px',
+                        stroke: '#0a0a0a',
+                        strokeWidth: `${strokeWidth}px`,
+                        paintOrder: 'stroke',
+                        pointerEvents: 'none',
+                        textTransform: 'uppercase'
+                      }}
+                    >
+                      {city.name}
+                    </text>
+                  </Marker>
+                );
+              });
             })()}
           </ZoomableGroup>
         </ComposableMap>

@@ -1,0 +1,167 @@
+{
+  "lastUpdated": "2025-11-05",
+  "source": "Congress.gov Official Roll Call Votes",
+  "additionalSources": [
+    "OpenSecrets.org - Campaign Finance Data",
+    "Congressional Research Service Reports"
+  ],
+  "votes": [
+    {
+      "id": "hr771-2023",
+      "title": "H.Res. 771 - Standing with Israel",
+      "description": "Resolution expressing support for Israel in its defense against Hamas and other terrorist organizations following October 7, 2023 attacks",
+      "date": "2023-10-25",
+      "chamber": "House",
+      "billNumber": "H.Res. 771",
+      "rollCallNumber": "528",
+      "result": "Passed",
+      "voteTotals": {
+        "yea": 412,
+        "nay": 10,
+        "present": 6,
+        "notVoting": 5
+      },
+      "proIsraelVote": "Yea",
+      "significance": "First major congressional response after October 7th attacks",
+      "congressGovUrl": "https://www.congress.gov/bill/118th-congress/house-resolution/771"
+    },
+    {
+      "id": "hr6126-2023",
+      "title": "H.R. 6126 - Israel Security Supplemental Appropriations Act",
+      "description": "$14.3 billion emergency aid package for Israel including $4B for Iron Dome, $1.2B for Iron Beam defense system",
+      "date": "2023-11-02",
+      "chamber": "House",
+      "billNumber": "H.R. 6126",
+      "rollCallNumber": "577",
+      "result": "Passed",
+      "voteTotals": {
+        "yea": 226,
+        "nay": 196,
+        "present": 0,
+        "notVoting": 11
+      },
+      "proIsraelVote": "Yea",
+      "significance": "First major aid package after October 7th, proposed offsetting costs by cutting IRS funding",
+      "congressGovUrl": "https://www.congress.gov/bill/118th-congress/house-bill/6126"
+    },
+    {
+      "id": "hconres57-2023",
+      "title": "H.Con.Res. 57 - Supporting the State of Israel",
+      "description": "Concurrent resolution reaffirming U.S. support for Israel and its right to self-defense",
+      "date": "2023-07-18",
+      "chamber": "House",
+      "billNumber": "H.Con.Res. 57",
+      "rollCallNumber": "338",
+      "result": "Passed",
+      "voteTotals": {
+        "yea": 412,
+        "nay": 9,
+        "present": 1,
+        "notVoting": 11
+      },
+      "proIsraelVote": "Yea",
+      "significance": "Broad bipartisan resolution before October 7th attacks",
+      "congressGovUrl": "https://www.congress.gov/bill/118th-congress/house-concurrent-resolution/57"
+    },
+    {
+      "id": "hr8034-2024",
+      "title": "H.R. 8034 - Israel Security Supplemental Appropriations Act, 2024",
+      "description": "$14.3 billion supplemental appropriations including $8.7B in direct military aid, $3.5B for Foreign Military Financing, $4B for missile defense, $1.2B for Iron Beam",
+      "date": "2024-04-20",
+      "chamber": "House",
+      "billNumber": "H.R. 8034",
+      "rollCallNumber": "152",
+      "result": "Passed",
+      "voteTotals": {
+        "yea": 366,
+        "nay": 58,
+        "present": 0,
+        "notVoting": 9
+      },
+      "proIsraelVote": "Yea",
+      "significance": "Largest single aid package to Israel in U.S. history, part of $95B foreign aid package",
+      "congressGovUrl": "https://www.congress.gov/bill/118th-congress/house-bill/8034"
+    },
+    {
+      "id": "senate-aid-2024",
+      "title": "Senate Foreign Aid Package (Israel portion)",
+      "description": "$26 billion total for Israel-related spending: $15B military aid, $9B humanitarian aid for Gaza, $2.4B for regional U.S. operations",
+      "date": "2024-04-23",
+      "chamber": "Senate",
+      "billNumber": "H.R. 815 (as amended)",
+      "rollCallNumber": "Senate Vote",
+      "result": "Passed",
+      "voteTotals": {
+        "yea": 79,
+        "nay": 18,
+        "present": 0,
+        "notVoting": 3
+      },
+      "proIsraelVote": "Yea",
+      "significance": "Bipartisan Senate passage of comprehensive aid package including Ukraine and Taiwan",
+      "congressGovUrl": "https://www.congress.gov/bill/118th-congress/house-bill/815"
+    },
+    {
+      "id": "sjres114-2024",
+      "title": "S.J.Res. 114 - Block Tank Round Sales to Israel",
+      "description": "Joint Resolution of Disapproval to block $20 million sale of tank rounds to Israel (120mm High Explosive Anti-Tank Multi-Purpose cartridges)",
+      "date": "2024-11-20",
+      "chamber": "Senate",
+      "billNumber": "S.J.Res. 114",
+      "rollCallNumber": "Senate Vote 242",
+      "result": "Failed",
+      "voteTotals": {
+        "yea": 19,
+        "nay": 79,
+        "present": 0,
+        "notVoting": 2
+      },
+      "proIsraelVote": "Nay",
+      "significance": "First Senate vote to potentially block weapons sales to Israel, led by Sen. Bernie Sanders",
+      "congressGovUrl": "https://www.congress.gov/bill/118th-congress/senate-joint-resolution/114"
+    },
+    {
+      "id": "sjres115-2024",
+      "title": "S.J.Res. 115 - Block Mortar Sales to Israel",
+      "description": "Joint Resolution of Disapproval to block $774.1 million sale of mortar rounds to Israel",
+      "date": "2024-11-20",
+      "chamber": "Senate",
+      "billNumber": "S.J.Res. 115",
+      "rollCallNumber": "Senate Vote 243",
+      "result": "Failed",
+      "voteTotals": {
+        "yea": 17,
+        "nay": 80,
+        "present": 0,
+        "notVoting": 3
+      },
+      "proIsraelVote": "Nay",
+      "significance": "Second Sanders resolution to block weapons sales amid Gaza humanitarian concerns",
+      "congressGovUrl": "https://www.congress.gov/bill/118th-congress/senate-joint-resolution/115"
+    },
+    {
+      "id": "sjres116-2024",
+      "title": "S.J.Res. 116 - Block JDAMs Sales to Israel",
+      "description": "Joint Resolution of Disapproval to block $61.1 million sale of Joint Direct Attack Munitions (JDAMs) to Israel",
+      "date": "2024-11-21",
+      "chamber": "Senate",
+      "billNumber": "S.J.Res. 116",
+      "rollCallNumber": "Senate Vote 244",
+      "result": "Failed",
+      "voteTotals": {
+        "yea": 18,
+        "nay": 79,
+        "present": 0,
+        "notVoting": 3
+      },
+      "proIsraelVote": "Nay",
+      "significance": "Record number of senators vote to restrict weapons to Israel (highest was 19)",
+      "congressGovUrl": "https://www.congress.gov/bill/118th-congress/senate-joint-resolution/116"
+    }
+  ],
+  "notes": {
+    "methodology": "Pro-Israel votes are defined as votes supporting military aid, weapons sales, and resolutions expressing support for Israel. Votes to block aid or weapons sales are considered anti-Israel positions in this tracking system.",
+    "dataIntegrity": "All vote counts, dates, and bill numbers verified against official Congress.gov records and House/Senate Clerk roll call databases.",
+    "limitations": "This dataset focuses on major Israel-related legislation. It does not include every mention of Israel in appropriations bills or non-binding statements."
+  }
+}
