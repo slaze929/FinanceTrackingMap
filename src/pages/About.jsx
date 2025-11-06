@@ -6,9 +6,11 @@ const About = () => {
   return (
     <div className="about-container">
       <div className="about-content">
-        <h1 className="about-title">
-          Where are J<AnimatedEye />w?
-        </h1>
+        <Link to="/" className="about-title-link">
+          <h1 className="about-title">
+            Where are J<AnimatedEye />w?
+          </h1>
+        </Link>
 
         <div className="about-text">
           <h2>About This Project</h2>

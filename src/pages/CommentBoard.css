@@ -1,0 +1,648 @@
+.comment-board-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  color: #e0e0e0;
+  padding: 40px 20px 60px;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.comment-board-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.comment-board-container::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.comment-board-container::-webkit-scrollbar-thumb {
+  background: #8B0000;
+  border-radius: 5px;
+}
+
+.comment-board-container::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
+}
+
+.comment-board-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.board-title-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.board-title-link:hover .board-title {
+  color: #ff6666;
+  text-shadow:
+    3px 3px 0px #ff0000,
+    6px 6px 10px rgba(255, 0, 0, 0.8);
+}
+
+.board-title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0;
+  color: #f5f5f5;
+  text-shadow:
+    3px 3px 0px #8B0000,
+    6px 6px 10px rgba(0, 0, 0, 0.8);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  transition: all 0.3s;
+}
+
+.board-subtitle {
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(11px, 1.2vw, 14px);
+  color: #888;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.board-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 30px;
+  margin-bottom: 2rem;
+}
+
+/* Sidebar */
+.board-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-section {
+  background: rgba(20, 20, 20, 0.8);
+  border: 2px solid #333;
+  border-left: 4px solid #8B0000;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-section h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #ff4444;
+  font-size: 14px;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+
+.state-select {
+  width: 100%;
+  padding: 12px;
+  background: rgba(10, 10, 10, 0.9);
+  border: 2px solid #333;
+  border-radius: 4px;
+  color: #f5f5f5;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.state-select:focus {
+  border-color: #8B0000;
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+  outline: none;
+}
+
+.state-select option {
+  background: #0a0a0a;
+  color: #f5f5f5;
+}
+
+.person-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.person-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.person-list::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-radius: 3px;
+}
+
+.person-list::-webkit-scrollbar-thumb {
+  background: #8B0000;
+  border-radius: 3px;
+}
+
+.person-list::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
+}
+
+.person-item {
+  padding: 12px;
+  background: rgba(10, 10, 10, 0.6);
+  border: 2px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.person-item:hover {
+  background: rgba(26, 26, 26, 0.8);
+  border-color: #555;
+  transform: translateX(-3px);
+}
+
+.person-item.active {
+  background: rgba(139, 0, 0, 0.2);
+  border-color: #8B0000;
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+}
+
+.person-info {
+  flex: 1;
+}
+
+.person-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: #f5f5f5;
+  margin-bottom: 5px;
+}
+
+.person-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.party-badge {
+  font-size: 10px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.party-badge.dem {
+  background: rgba(0, 102, 204, 0.3);
+  color: #4da6ff;
+  border: 1px solid #0066cc;
+}
+
+.party-badge.rep {
+  background: rgba(139, 0, 0, 0.3);
+  color: #ff4444;
+  border: 1px solid #8B0000;
+}
+
+.position-badge {
+  font-size: 9px;
+  color: #888;
+  font-family: 'Space Grotesk', sans-serif;
+  text-transform: uppercase;
+}
+
+.comment-count {
+  font-size: 11px;
+  color: #666;
+  font-family: 'Space Grotesk', sans-serif;
+  white-space: nowrap;
+}
+
+/* Main Content */
+.board-main {
+  background: rgba(20, 20, 20, 0.8);
+  border: 2px solid #333;
+  border-left: 4px solid #8B0000;
+  border-radius: 4px;
+  padding: 30px;
+  min-height: 600px;
+  max-height: 800px;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.board-main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.board-main::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-radius: 4px;
+}
+
+.board-main::-webkit-scrollbar-thumb {
+  background: #8B0000;
+  border-radius: 4px;
+}
+
+.board-main::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
+}
+
+.no-selection {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.no-selection h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.no-selection p {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Person Header */
+.person-header {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #333;
+  position: relative;
+}
+
+.person-header::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 30%;
+  height: 3px;
+  background: #ff0000;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(0); opacity: 0.8; }
+  50% { transform: translateX(200%); opacity: 1; }
+}
+
+.person-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 4px;
+  border: 3px solid #333;
+  object-fit: cover;
+  filter: grayscale(20%) contrast(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.person-details h2 {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 32px;
+  color: #f5f5f5;
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 0px #8B0000, 4px 4px 10px rgba(0, 0, 0, 0.8);
+  letter-spacing: 2px;
+}
+
+.person-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.party-tag,
+.position-tag,
+.lobby-tag {
+  font-size: 11px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 3px;
+  font-family: 'Space Grotesk', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.party-tag.dem {
+  background: linear-gradient(135deg, #004d99, #0066cc);
+  color: white;
+  border: 1px solid #0066cc;
+  box-shadow: 0 0 10px rgba(0, 102, 204, 0.3);
+}
+
+.party-tag.rep {
+  background: linear-gradient(135deg, #8B0000, #ff0000);
+  color: white;
+  border: 1px solid #ff0000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.position-tag {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.lobby-tag {
+  background: rgba(139, 0, 0, 0.2);
+  color: #ff6666;
+  border: 1px solid #8B0000;
+}
+
+/* Comment Form */
+.comment-form-section {
+  background: rgba(26, 26, 26, 0.6);
+  border: 2px solid #333;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.comment-form-section h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  color: #ff4444;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.name-input,
+.comment-textarea {
+  width: 100%;
+  padding: 12px;
+  background: rgba(10, 10, 10, 0.9);
+  border: 2px solid #333;
+  border-radius: 4px;
+  color: #f5f5f5;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.name-input::placeholder,
+.comment-textarea::placeholder {
+  color: #666;
+}
+
+.name-input:focus,
+.comment-textarea:focus {
+  border-color: #8B0000;
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+  outline: none;
+}
+
+.comment-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.char-count {
+  font-size: 11px;
+  color: #666;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.submit-button {
+  padding: 12px 30px;
+  background: #8B0000;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+  outline: none;
+}
+
+.submit-button:hover {
+  background: #a00000;
+  box-shadow: 0 0 30px rgba(160, 0, 0, 0.7);
+  transform: translateY(-2px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  outline: none;
+}
+
+.submit-button:focus {
+  outline: none;
+}
+
+/* Comments Section */
+.comments-section {
+  margin-top: 30px;
+}
+
+.comments-section h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  color: #ff4444;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+
+.no-comments {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-family: 'Space Grotesk', sans-serif;
+  background: rgba(26, 26, 26, 0.4);
+  border: 2px dashed #333;
+  border-radius: 4px;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.comment-item {
+  background: rgba(26, 26, 26, 0.6);
+  border: 2px solid #333;
+  border-left: 4px solid #555;
+  border-radius: 4px;
+  padding: 15px;
+  transition: all 0.3s;
+}
+
+.comment-item:hover {
+  background: rgba(36, 36, 36, 0.7);
+  border-left-color: #8B0000;
+  transform: translateX(-3px);
+  box-shadow: 3px 3px 0 rgba(139, 0, 0, 0.2);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.comment-author {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: #ff6666;
+}
+
+.comment-time {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  color: #666;
+}
+
+.comment-body {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+/* Back Button */
+.back-button {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 12px 30px;
+  background: #8B0000;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+  outline: none;
+}
+
+.back-button:hover {
+  background: #a00000;
+  box-shadow: 0 0 30px rgba(160, 0, 0, 0.7);
+  transform: translateY(-2px);
+}
+
+.back-button:active {
+  transform: translateY(0);
+  outline: none;
+}
+
+.back-button:focus {
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .board-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .board-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .board-main {
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .comment-board-container {
+    padding: 30px 15px 50px;
+  }
+
+  .board-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .board-main {
+    padding: 20px;
+    max-height: none;
+  }
+
+  .person-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .person-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .person-tags {
+    justify-content: center;
+  }
+
+  .form-footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .submit-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,462 @@
+.company-profit-container {
+  min-height: 100vh;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  color: #e0e0e0;
+  padding: 40px 20px 60px;
+  overflow-y: auto;
+}
+
+.company-profit-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.company-profit-container::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.company-profit-container::-webkit-scrollbar-thumb {
+  background: #8B0000;
+  border-radius: 5px;
+}
+
+.company-profit-container::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
+}
+
+.company-profit-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.company-title-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.company-title-link:hover .company-title {
+  color: #ff6666;
+  text-shadow:
+    3px 3px 0px #ff0000,
+    6px 6px 10px rgba(255, 0, 0, 0.8);
+}
+
+.company-title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0;
+  color: #f5f5f5;
+  text-shadow:
+    3px 3px 0px #8B0000,
+    6px 6px 10px rgba(0, 0, 0, 0.8);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  transition: all 0.3s;
+}
+
+.company-subtitle {
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(11px, 1.2vw, 14px);
+  color: #888;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Stats Section */
+.stats-section {
+  margin-bottom: 4rem;
+}
+
+.stat-card {
+  background: rgba(20, 20, 20, 0.8);
+  border: 2px solid #333;
+  border-left: 4px solid #8B0000;
+  border-radius: 4px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  border-left-color: #ff0000;
+  box-shadow: 0 4px 30px rgba(139, 0, 0, 0.4);
+  transform: translateX(-3px);
+}
+
+.stat-card.large {
+  margin-bottom: 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(139, 0, 0, 0.1));
+}
+
+.stat-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.stat-value {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  color: #ff4444;
+  text-shadow: 0 0 20px rgba(255, 68, 68, 0.4), 3px 3px 0px rgba(139, 0, 0, 0.5);
+  margin: 10px 0;
+  letter-spacing: 2px;
+}
+
+.stat-period {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.stat-grid .stat-value {
+  font-size: clamp(28px, 4vw, 40px);
+}
+
+/* Companies Section */
+.companies-section {
+  margin-bottom: 3rem;
+}
+
+.companies-section h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  color: #ff4444;
+  margin: 0 0 30px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  border-bottom: 3px solid #333;
+  padding-bottom: 15px;
+  position: relative;
+}
+
+.companies-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 30%;
+  height: 3px;
+  background: #ff0000;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(0); opacity: 0.8; }
+  50% { transform: translateX(200%); opacity: 1; }
+}
+
+.companies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 25px;
+}
+
+.company-card {
+  background: rgba(20, 20, 20, 0.8);
+  border: 2px solid #333;
+  border-left: 4px solid #8B0000;
+  border-radius: 4px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+.company-card:hover {
+  border-left-color: #ff0000;
+  box-shadow: 0 6px 30px rgba(139, 0, 0, 0.4);
+  transform: translateX(-5px);
+}
+
+.company-header {
+  background: rgba(139, 0, 0, 0.15);
+  padding: 20px 25px;
+  border-bottom: 2px solid #333;
+}
+
+.company-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 8px;
+}
+
+.company-rank {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 32px;
+  color: #ff4444;
+  font-weight: bold;
+  min-width: 50px;
+  text-shadow: 2px 2px 0px #8B0000;
+}
+
+.company-header h3 {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 28px;
+  color: #f5f5f5;
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px #8B0000;
+}
+
+.company-location {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.company-body {
+  padding: 25px;
+}
+
+.contract-value-section {
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.25), rgba(139, 0, 0, 0.15));
+  border: 2px solid #8B0000;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contract-value {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(32px, 4vw, 42px);
+  color: #ff4444;
+  text-shadow: 0 0 15px rgba(255, 68, 68, 0.5), 2px 2px 0px rgba(139, 0, 0, 0.8);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.contract-period {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+
+.company-description {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.products-section,
+.facilities-section {
+  margin-top: 20px;
+}
+
+.products-section strong,
+.facilities-section strong {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  color: #ff6666;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.products-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.products-list li {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  color: #aaa;
+  padding: 8px 12px;
+  background: rgba(10, 10, 10, 0.6);
+  border-left: 3px solid #555;
+  margin-bottom: 8px;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.products-list li:hover {
+  border-left-color: #8B0000;
+  background: rgba(26, 26, 26, 0.8);
+  transform: translateX(5px);
+}
+
+.facilities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.facility-tag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  color: #ff6666;
+  background: rgba(139, 0, 0, 0.2);
+  border: 1px solid #8B0000;
+  padding: 6px 12px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+.facility-tag:hover {
+  background: rgba(139, 0, 0, 0.4);
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+}
+
+/* Info Note */
+.info-note {
+  background: rgba(0, 102, 204, 0.1);
+  border: 2px solid #0066cc;
+  border-left: 4px solid #0066cc;
+  border-radius: 4px;
+  padding: 25px;
+  margin-bottom: 3rem;
+}
+
+.info-note h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  color: #4da6ff;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
+
+.info-note p {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  color: #aaa;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Data Source */
+.data-source {
+  background: rgba(20, 20, 20, 0.8);
+  border: 2px solid #333;
+  border-radius: 4px;
+  padding: 25px;
+  margin-bottom: 3rem;
+}
+
+.data-source h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  color: #ff4444;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
+
+.data-source ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.data-source ul li {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  color: #888;
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+}
+
+.data-source ul li:last-child {
+  border-bottom: none;
+}
+
+/* Back Button */
+.back-button {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #8B0000;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+  outline: none;
+}
+
+.back-button:hover {
+  background: #a00000;
+  box-shadow: 0 0 30px rgba(160, 0, 0, 0.7);
+  transform: translateY(-2px);
+}
+
+.back-button:active {
+  transform: translateY(0);
+  outline: none;
+}
+
+.back-button:focus {
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .companies-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .company-profit-container {
+    padding: 30px 15px 50px;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .companies-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .company-card {
+    min-width: auto;
+  }
+}

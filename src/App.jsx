@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { useEffect, useState } from 'react';
 import HomePage from './pages/HomePage';
 import About from './pages/About';
+import CommentBoard from './pages/CommentBoard';
+import CompanyProfit from './pages/CompanyProfit';
 import './App.css';
 
 // Animated routes wrapper
@@ -29,6 +31,8 @@ function AnimatedRoutes() {
       <Routes location={displayLocation}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<About />} />
+        <Route path="/comments" element={<CommentBoard />} />
+        <Route path="/company-profit" element={<CompanyProfit />} />
       </Routes>
     </div>
   );

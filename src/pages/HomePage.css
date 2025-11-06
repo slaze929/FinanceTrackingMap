@@ -6,6 +6,29 @@
   box-sizing: border-box;
 }
 
+/* Remove all focus outlines globally */
+button,
+a,
+input,
+textarea,
+select,
+[tabindex] {
+  outline: none !important;
+}
+
+button:focus,
+button:active,
+a:focus,
+a:active,
+input:focus,
+input:active,
+textarea:focus,
+textarea:active,
+select:focus,
+select:active {
+  outline: none !important;
+}
+
 body {
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   background: #0a0a0a;
@@ -76,6 +99,19 @@ body::before {
   50% { opacity: 1; }
 }
 
+.title-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.title-link:hover .main-title {
+  color: #ff6666;
+  text-shadow:
+    3px 3px 0px #ff0000,
+    6px 6px 10px rgba(255, 0, 0, 0.8);
+}
+
 .main-title {
   font-family: 'Bebas Neue', 'Impact', sans-serif;
   font-size: clamp(42px, 7vw, 72px);
@@ -93,6 +129,7 @@ body::before {
     3px 3px 0px #8B0000,
     6px 6px 10px rgba(0, 0, 0, 0.8);
   position: relative;
+  transition: all 0.3s;
 }
 
 .subtitle {

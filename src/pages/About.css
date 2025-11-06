@@ -13,18 +13,32 @@
   width: 100%;
 }
 
+.about-title-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.about-title-link:hover .about-title {
+  color: #ff0000;
+  text-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+}
+
 .about-title {
   font-family: 'Oswald', sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   color: #8B0000;
   text-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
   letter-spacing: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s;
 }
 
 .about-text {
@@ -80,6 +94,7 @@
   border-radius: 5px;
   transition: all 0.3s;
   box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+  outline: none;
 }
 
 .back-button:hover {
@@ -88,8 +103,13 @@
   transform: translateY(-2px);
 }
 
+.back-button:focus {
+  outline: none;
+}
+
 .back-button:active {
   transform: translateY(0);
+  outline: none;
 }
 
 @media (max-width: 768px) {

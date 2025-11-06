@@ -1,3 +1,14 @@
+.header-nav-left {
+  position: absolute;
+  bottom: 8px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  z-index: 100;
+}
+
 .header-nav {
   position: absolute;
   bottom: 8px;
@@ -53,7 +64,9 @@
   outline: none;
 }
 
-.about-link {
+.about-link,
+.comments-link,
+.company-profit-link {
   color: #888;
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(10px, 1.2vw, 13px);
@@ -65,11 +78,27 @@
   white-space: nowrap;
 }
 
-.about-link:hover {
+.about-link:hover,
+.comments-link:hover,
+.company-profit-link:hover {
   color: #aaa;
 }
 
+.last-updated {
+  color: #888;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(10px, 1.2vw, 13px);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 @media (max-width: 768px) {
+  .header-nav-left {
+    left: 15px;
+  }
+
   .header-nav {
     right: 15px;
     gap: 15px;

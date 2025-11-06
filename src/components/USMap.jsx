@@ -30,6 +30,7 @@ const USMap = ({ onStateSelect }) => {
   const [hoveredState, setHoveredState] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
+  const [resetKey, setResetKey] = useState(0);
   const stateRefs = useRef({});
 
   // Round zoom to reduce re-renders
@@ -88,16 +89,10 @@ const USMap = ({ onStateSelect }) => {
     }
   };
 
-  const handleZoomIn = () => {
-    setPosition((pos) => ({ ...pos, zoom: pos.zoom * 1.5 }));
-  };
-
-  const handleZoomOut = () => {
-    setPosition((pos) => ({ ...pos, zoom: pos.zoom / 1.5 }));
-  };
-
   const handleReset = () => {
     setPosition({ coordinates: [0, 0], zoom: 1 });
+    setSelectedState(null);
+    setResetKey(prev => prev + 1);
   };
 
   const handleMoveEnd = (position) => {
@@ -190,6 +185,7 @@ const USMap = ({ onStateSelect }) => {
           }}
         >
           <ZoomableGroup
+            key={resetKey}
             zoom={position.zoom}
             center={position.coordinates}
             onMoveEnd={handleMoveEnd}
@@ -314,76 +310,13 @@ const USMap = ({ onStateSelect }) => {
         </div>
       </div>
 
-      {/* Zoom Controls */}
+      {/* Reset Control */}
       <div style={{
         position: 'absolute',
         bottom: '30px',
         right: '30px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
         zIndex: 10
       }}>
-        <button
-          onClick={handleZoomIn}
-          style={{
-            width: '40px',
-            height: '40px',
-            border: '2px solid #8B0000',
-            background: 'rgba(10, 10, 10, 0.9)',
-            color: '#8B0000',
-            fontSize: '20px',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            borderRadius: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s',
-            boxShadow: '0 0 15px rgba(139, 0, 0, 0.3)',
-            outline: 'none'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(139, 0, 0, 0.2)';
-            e.target.style.color = '#ff0000';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(10, 10, 10, 0.9)';
-            e.target.style.color = '#8B0000';
-          }}
-        >
-          +
-        </button>
-        <button
-          onClick={handleZoomOut}
-          style={{
-            width: '40px',
-            height: '40px',
-            border: '2px solid #8B0000',
-            background: 'rgba(10, 10, 10, 0.9)',
-            color: '#8B0000',
-            fontSize: '20px',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            borderRadius: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s',
-            boxShadow: '0 0 15px rgba(139, 0, 0, 0.3)',
-            outline: 'none'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(139, 0, 0, 0.2)';
-            e.target.style.color = '#ff0000';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(10, 10, 10, 0.9)';
-            e.target.style.color = '#8B0000';
-          }}
-        >
-          −
-        </button>
         <button
           onClick={handleReset}
           style={{

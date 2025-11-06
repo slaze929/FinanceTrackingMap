@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AnimatedEye from '../components/AnimatedEye';
 import USMap from '../components/USMap';
 import DetailsPanel from '../components/DetailsPanel';
@@ -23,9 +24,11 @@ function HomePage() {
     <div className="app-container">
       {/* Title with animated eye */}
       <header className="app-header">
-        <h1 className="main-title">
-          Where are J<AnimatedEye />w?
-        </h1>
+        <Link to="/" className="title-link">
+          <h1 className="main-title">
+            Where are J<AnimatedEye />w?
+          </h1>
+        </Link>
         <p className="subtitle">
           Track AIPAC lobby money by state
         </p>

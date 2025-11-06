@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import './DetailsPanel.css';
 
@@ -6,9 +7,15 @@ const DetailsPanel = ({ stateName, stateData, onClose }) => {
   const panelRef = useRef(null);
   const overlayRef = useRef(null);
   const [activeTab, setActiveTab] = useState('congress');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [partyFilter, setPartyFilter] = useState('all'); // 'all', 'D', 'R'
 
   useEffect(() => {
     if (stateData) {
+      // Reset filters when new state is selected
+      setSearchTerm('');
+      setPartyFilter('all');
+
       // Animate panel in
       gsap.fromTo(
         overlayRef.current,
@@ -39,6 +46,14 @@ const DetailsPanel = ({ stateName, stateData, onClose }) => {
   };
 
   if (!stateData) return null;
+
+  // Filter congresspeople based on search and party filter
+  const filteredCongresspeople = stateData.congresspeople.filter((person) => {
+    const matchesSearch = person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         person.position.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesParty = partyFilter === 'all' || person.party === partyFilter;
+    return matchesSearch && matchesParty;
+  });
 
   return (
     <>
@@ -77,15 +92,62 @@ const DetailsPanel = ({ stateName, stateData, onClose }) => {
               className={`tab-button ${activeTab === 'tax' ? 'active' : ''}`}
               onClick={() => setActiveTab('tax')}
             >
-              Your Tax Dollars
+              Taxes
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'districts' ? 'active' : ''}`}
+              onClick={() => setActiveTab('districts')}
+            >
+              Districts
             </button>
           </div>
         </div>
 
         {/* Tab Content */}
         {activeTab === 'congress' && (
-          <div className="congresspeople-list">
-          {stateData.congresspeople.map((person, index) => (
+          <>
+            {/* Search and Filter Controls */}
+            <div className="filter-controls">
+              <input
+                type="text"
+                placeholder="Search by name or position..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+
+              <div className="party-filters">
+                <button
+                  className={`party-filter-btn ${partyFilter === 'all' ? 'active' : ''}`}
+                  onClick={() => setPartyFilter('all')}
+                >
+                  All ({stateData.congresspeople.length})
+                </button>
+                <button
+                  className={`party-filter-btn democrat ${partyFilter === 'D' ? 'active' : ''}`}
+                  onClick={() => setPartyFilter('D')}
+                >
+                  Democrats ({stateData.congresspeople.filter(p => p.party === 'D').length})
+                </button>
+                <button
+                  className={`party-filter-btn republican ${partyFilter === 'R' ? 'active' : ''}`}
+                  onClick={() => setPartyFilter('R')}
+                >
+                  Republicans ({stateData.congresspeople.filter(p => p.party === 'R').length})
+                </button>
+              </div>
+            </div>
+
+            {/* Results count */}
+            {(searchTerm || partyFilter !== 'all') && (
+              <div className="results-count">
+                Showing {filteredCongresspeople.length} of {stateData.congresspeople.length} congresspeople
+              </div>
+            )}
+
+            <div className="congresspeople-list">
+            {filteredCongresspeople.length > 0 ? (
+              filteredCongresspeople.map((person, index) => (
             <div key={index} className="congress-card">
               {/* Photo */}
               {person.photo && (
@@ -126,21 +188,39 @@ const DetailsPanel = ({ stateName, stateData, onClose }) => {
                   </div>
                 )}
 
-                {person.nextElection && (
-                  <div className="election-info">
-                    Next Election: {person.nextElection}
-                  </div>
-                )}
+                <div className="card-footer">
+                  <div className="card-footer-left">
+                    {person.nextElection && (
+                      <div className="election-info">
+                        Next Election: {person.nextElection}
+                      </div>
+                    )}
 
-                {person.runningFor && (
-                  <div className="running-for">
-                    Running for: {person.runningFor}
+                    {person.runningFor && (
+                      <div className="running-for">
+                        Running for: {person.runningFor}
+                      </div>
+                    )}
                   </div>
-                )}
+
+                  <Link
+                    to="/comments"
+                    state={{ stateName, person }}
+                    className="comment-board-link"
+                  >
+                    View on Comment Board →
+                  </Link>
+                </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="no-results">
+            <p>No congresspeople found matching your filters.</p>
           </div>
+        )}
+          </div>
+          </>
         )}
 
         {/* Tax Tab Content */}
@@ -200,6 +280,75 @@ const DetailsPanel = ({ stateName, stateData, onClose }) => {
             </div>
           </div>
         )}
+
+        {/* Congressional Districts Tab Content */}
+        {activeTab === 'districts' && (
+          <div className="districts-content">
+            <div className="districts-section">
+              <h3>Defense Contractors in {stateName}</h3>
+
+              <div className="districts-intro">
+                <p>
+                  This tab shows which defense contractors benefiting from U.S. military aid to Israel
+                  have facilities, offices, or manufacturing plants located in {stateName}.
+                </p>
+              </div>
+
+              {getStateContractors(stateName).length > 0 ? (
+                <div className="contractors-list">
+                  {getStateContractors(stateName).map((contractor, index) => (
+                    <div key={index} className="contractor-card">
+                      <div className="contractor-header">
+                        <h4>{contractor.company}</h4>
+                        <span className="contractor-type">{contractor.type}</span>
+                      </div>
+                      <div className="contractor-body">
+                        <div className="contractor-facilities">
+                          <strong>Facilities in {stateName}:</strong>
+                          <ul>
+                            {contractor.facilities.map((facility, i) => (
+                              <li key={i}>
+                                <span className="facility-name">{facility.location}</span>
+                                {facility.district && (
+                                  <span className="district-badge">District {facility.district}</span>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="contractor-products">
+                          <strong>Products:</strong>
+                          <p>{contractor.products}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="no-contractors">
+                  <p>
+                    No major defense contractors with known facilities in {stateName} were identified
+                    in our current database. This doesn't mean there are no defense-related businesses
+                    in the state, just that the major contractors supplying Israel are primarily based elsewhere.
+                  </p>
+                </div>
+              )}
+
+              <div className="districts-info-box">
+                <h4>About This Data</h4>
+                <p>
+                  This information is based on publicly available data about defense contractor
+                  facilities and congressional district boundaries. The contractors listed here
+                  are among those profiting from the $39.2 billion in active Foreign Military Sales
+                  to Israel as of April 2025.
+                </p>
+                <p className="districts-source">
+                  Source: State Department FMS data, Defense contractor public filings
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
@@ -228,6 +377,175 @@ const calculateStateTaxContribution = (stateName) => {
 
   const percentage = statePopulationPercentages[stateName] || 1.0;
   return Math.round((totalAid * percentage) / 100);
+};
+
+// Get defense contractors with facilities in the state
+const getStateContractors = (stateName) => {
+  const contractorsData = {
+    'Texas': [
+      {
+        company: 'Lockheed Martin',
+        type: 'Aerospace & Defense',
+        products: 'F-35 Fighter Jets, F-16 components',
+        facilities: [
+          { location: 'Fort Worth', district: '12' },
+          { location: 'Grand Prairie', district: '24' }
+        ]
+      }
+    ],
+    'Georgia': [
+      {
+        company: 'Lockheed Martin',
+        type: 'Aerospace & Defense',
+        products: 'C-130 transport aircraft, F-35 components',
+        facilities: [
+          { location: 'Marietta', district: '11' }
+        ]
+      }
+    ],
+    'Florida': [
+      {
+        company: 'Lockheed Martin',
+        type: 'Aerospace & Defense',
+        products: 'Missile systems, training & simulation',
+        facilities: [
+          { location: 'Orlando', district: '10' },
+          { location: 'Jupiter', district: '21' }
+        ]
+      }
+    ],
+    'Missouri': [
+      {
+        company: 'Boeing',
+        type: 'Aerospace & Defense',
+        products: 'F-15 Fighter Jets, F/A-18 Super Hornet',
+        facilities: [
+          { location: 'St. Louis', district: '1' }
+        ]
+      }
+    ],
+    'Pennsylvania': [
+      {
+        company: 'Boeing',
+        type: 'Aerospace & Defense',
+        products: 'CH-47 Chinook, V-22 Osprey helicopters',
+        facilities: [
+          { location: 'Philadelphia (Ridley Park)', district: '5' }
+        ]
+      }
+    ],
+    'Washington': [
+      {
+        company: 'Boeing',
+        type: 'Aerospace & Defense',
+        products: 'KC-46 Tankers, military aircraft',
+        facilities: [
+          { location: 'Seattle/Everett', district: '2' },
+          { location: 'Renton', district: '9' }
+        ]
+      }
+    ],
+    'Arizona': [
+      {
+        company: 'RTX/Raytheon',
+        type: 'Defense Systems',
+        products: 'Missile Defense Systems, Patriot missiles',
+        facilities: [
+          { location: 'Tucson', district: '7' }
+        ]
+      }
+    ],
+    'Massachusetts': [
+      {
+        company: 'RTX/Raytheon',
+        type: 'Defense Systems',
+        products: 'Missile systems, air defense radars',
+        facilities: [
+          { location: 'Tewksbury', district: '3' },
+          { location: 'Andover', district: '3' }
+        ]
+      }
+    ],
+    'Maryland': [
+      {
+        company: 'Lockheed Martin',
+        type: 'Aerospace & Defense',
+        products: 'Corporate headquarters, systems integration',
+        facilities: [
+          { location: 'Bethesda (HQ)', district: '8' }
+        ]
+      }
+    ],
+    'Virginia': [
+      {
+        company: 'Boeing',
+        type: 'Aerospace & Defense',
+        products: 'Corporate headquarters',
+        facilities: [
+          { location: 'Arlington (HQ)', district: '8' }
+        ]
+      },
+      {
+        company: 'RTX/Raytheon',
+        type: 'Defense Systems',
+        products: 'Corporate headquarters',
+        facilities: [
+          { location: 'Arlington (HQ)', district: '8' }
+        ]
+      }
+    ],
+    'California': [
+      {
+        company: 'Lockheed Martin',
+        type: 'Aerospace & Defense',
+        products: 'Space systems, missile defense',
+        facilities: [
+          { location: 'Sunnyvale', district: '17' },
+          { location: 'Palmdale', district: '27' }
+        ]
+      },
+      {
+        company: 'Boeing',
+        type: 'Aerospace & Defense',
+        products: 'Satellite systems, defense electronics',
+        facilities: [
+          { location: 'El Segundo', district: '36' }
+        ]
+      }
+    ],
+    'Connecticut': [
+      {
+        company: 'RTX/Raytheon',
+        type: 'Defense Systems',
+        products: 'Pratt & Whitney engines',
+        facilities: [
+          { location: 'East Hartford', district: '1' }
+        ]
+      }
+    ],
+    'Alabama': [
+      {
+        company: 'Lockheed Martin',
+        type: 'Aerospace & Defense',
+        products: 'Missile systems, space programs',
+        facilities: [
+          { location: 'Huntsville', district: '5' }
+        ]
+      }
+    ],
+    'Colorado': [
+      {
+        company: 'Lockheed Martin',
+        type: 'Aerospace & Defense',
+        products: 'Space systems, satellites',
+        facilities: [
+          { location: 'Littleton', district: '6' }
+        ]
+      }
+    ]
+  };
+
+  return contractorsData[stateName] || [];
 };
 
 export default DetailsPanel;
