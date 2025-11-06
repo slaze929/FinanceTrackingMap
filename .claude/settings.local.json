@@ -21,7 +21,19 @@
       "Bash(node scripts/downloadHTML.js:*)",
       "Bash(node scripts/smartScraper.js:*)",
       "Bash(node scripts/finalScraper.js:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nBuild interactive AIPAC finance tracker - ''Where are Jew?''\n\nFeatures:\n- Web scraper extracting 521 congresspeople data from trackAIPAC.com ($186M+ tracked)\n- Interactive US map with dark/grungy theme and red color gradient based on lobby money\n- Animated eyeball logo with cursor tracking and blinking\n- GSAP animations for state hover effects (elevation and highlighting)\n- Click states to view detailed congresspeople panels with photos, amounts, organizations\n- Fullscreen responsive layout optimized for all screen sizes\n- Modern activism-style UI with Bebas Neue typography and red accents\n\nTech stack: React, Vite, GSAP, React Simple Maps, Cheerio, Axios\nData: 49 states, 521 congress members, structured JSON with totals per state\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git config:*)",
+      "Bash(git push)",
+      "Bash(git pull:*)",
+      "Bash(git remote get-url:*)",
+      "WebSearch",
+      "WebFetch(domain:www.cfr.org)",
+      "Bash(timeout /t 5)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd comprehensive Aid Timeline feature with credible historical data\n\nFeatures:\n- Interactive timeline visualization (1948-2025) showing U.S. aid to Israel\n- Scrollable event markers sized by aid amount with color-coded categories\n- Detailed event cards with casualties, context, and verified sources\n- Aid comparison charts: Israel vs. all other countries combined\n- Key statistics dashboard with verified totals ($317.9B cumulative)\n- 16 major historical events including conflicts and aid spikes\n- Click/hover interactions for detailed event information\n\nData Sources (All Verified & Credible):\n- Council on Foreign Relations (CFR)\n- U.S. State Department Foreign Military Sales data\n- Congressional Research Service reports\n- Quincy Institute for Responsible Statecraft\n- Brown University Costs of War Project\n- USAFacts.org federal aid data\n\nDesign:\n- Matches existing dark/grungy activist theme\n- Red accents and Bebas Neue typography\n- Smooth GSAP-style animations\n- Fully responsive with custom scrollbar\n- New \"AID TIMELINE\" navigation tab\n\nTechnical:\n- New route: /aid-timeline\n- AidTimeline component with interactive visualizations\n- Bar charts showing year-by-year aid distribution\n- Methodology notes and source attribution\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd Voting Record feature and enhance map city labels\n\nFeatures:\n- New \"Voting Record\" tab in details panel showing Israel-related congressional votes\n- Comprehensive voting data (2023-2024) with bill numbers, results, and significance\n- Correlation analysis between AIPAC funding and voting patterns\n- Individual vote cards with descriptions, totals (Yea/Nay), and Congress.gov links\n- Data sourced from Congress.gov and verified with multiple credible sources\n\nEnhancements:\n- Improved city label collision detection with 8-position smart placement\n- Enhanced label spacing and positioning to prevent overlaps\n- Better state hover effects with proper z-index layering\n- Smoother animations for city markers and labels\n\nDesign:\n- Matches existing dark/grungy activist theme with red accents\n- Responsive vote cards with detailed metadata (bill number, chamber, roll call)\n- Color-coded vote results (green for passed, red for failed)\n- Source attribution and methodology notes\n\nData:\n- 16 major Israel-related votes tracked\n- Verifiable Congress.gov URLs for each vote\n- Multiple data sources documented (Congress.gov, OpenSecrets, ProPublica)\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "Bash(nul)"
     ],
     "deny": [],
     "ask": []
