@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import congressData from '../data/congressData.json';
 import PageTitle from '../components/PageTitle';
+import { commentAPI } from '../services/api';
+import { checkContent } from '../utils/contentFilter';
 import './CommentBoard.css';
 
 const CommentBoard = () => {
@@ -11,6 +13,10 @@ const CommentBoard = () => {
   const [comments, setComments] = useState({});
   const [newComment, setNewComment] = useState('');
   const [anonymousName, setAnonymousName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [validationWarning, setValidationWarning] = useState(null);
 
   // Check for incoming state from navigation (when clicking "View on Comment Board")
   useEffect(() => {
@@ -20,20 +26,24 @@ const CommentBoard = () => {
     }
   }, [location.state]);
 
-  // Load comments from localStorage on mount
+  // Load all comments from API on mount
   useEffect(() => {
-    const savedComments = localStorage.getItem('congressComments');
-    if (savedComments) {
-      setComments(JSON.parse(savedComments));
-    }
-  }, []);
+    const loadAllComments = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const allComments = await commentAPI.getAllComments();
+        setComments(allComments);
+      } catch (err) {
+        console.error('Error loading comments:', err);
+        setError('Failed to load comments. Make sure the backend server is running.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Save comments to localStorage whenever they change
-  useEffect(() => {
-    if (Object.keys(comments).length > 0) {
-      localStorage.setItem('congressComments', JSON.stringify(comments));
-    }
-  }, [comments]);
+    loadAllComments();
+  }, []);
 
   // Get all states sorted alphabetically
   const states = Object.keys(congressData.states).sort();
@@ -41,25 +51,81 @@ const CommentBoard = () => {
   // Get congresspeople for selected state
   const congresspeople = selectedState ? congressData.states[selectedState]?.congresspeople || [] : [];
 
-  const handleSubmitComment = (e) => {
+  // Validate content in real-time
+  const validateComment = (text, name) => {
+    const nameCheck = checkContent(name || 'Anonymous');
+    if (!nameCheck.isClean) {
+      return {
+        isValid: false,
+        message: `Name contains: ${nameCheck.violations.join(', ')}`
+      };
+    }
+
+    const textCheck = checkContent(text);
+    if (!textCheck.isClean) {
+      return {
+        isValid: false,
+        message: `Comment contains: ${textCheck.violations.join(', ')}`
+      };
+    }
+
+    return { isValid: true };
+  };
+
+  // Update validation when comment or name changes
+  useEffect(() => {
+    if (newComment.trim() || anonymousName.trim()) {
+      const validation = validateComment(newComment, anonymousName);
+      if (!validation.isValid) {
+        setValidationWarning(validation.message);
+      } else {
+        setValidationWarning(null);
+      }
+    } else {
+      setValidationWarning(null);
+    }
+  }, [newComment, anonymousName]);
+
+  const handleSubmitComment = async (e) => {
     e.preventDefault();
-    if (!newComment.trim() || !selectedPerson) return;
+    if (!newComment.trim() || !selectedPerson || submitting) return;
+
+    // Client-side validation
+    const validation = validateComment(newComment, anonymousName);
+    if (!validation.isValid) {
+      setError(`Cannot post: ${validation.message}. Remove any phone numbers, addresses, emails, or other personal information.`);
+      return;
+    }
 
     const personKey = `${selectedPerson.name}-${selectedPerson.position}`;
-    const comment = {
-      id: Date.now(),
-      name: anonymousName.trim() || 'Anonymous',
-      text: newComment,
-      timestamp: new Date().toISOString(),
-    };
 
-    setComments(prev => ({
-      ...prev,
-      [personKey]: [...(prev[personKey] || []), comment]
-    }));
+    try {
+      setSubmitting(true);
+      setError(null);
 
-    setNewComment('');
-    setAnonymousName('');
+      const postedComment = await commentAPI.postComment(
+        personKey,
+        anonymousName.trim() || 'Anonymous',
+        newComment.trim(),
+        new Date().toISOString()
+      );
+
+      // Update local state with the new comment
+      setComments(prev => ({
+        ...prev,
+        [personKey]: [...(prev[personKey] || []), postedComment]
+      }));
+
+      setNewComment('');
+      setAnonymousName('');
+      setValidationWarning(null);
+    } catch (err) {
+      console.error('Error posting comment:', err);
+      const errorMessage = err.message || 'Failed to post comment. Please try again.';
+      setError(errorMessage);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const getComments = (person) => {
@@ -84,6 +150,32 @@ const CommentBoard = () => {
       <div className="comment-board-content">
         <PageTitle />
         <p className="board-subtitle">Anonymous forum for discussing congresspeople and AIPAC influence</p>
+
+        {error && (
+          <div className="error-banner" style={{
+            padding: '12px 20px',
+            marginBottom: '20px',
+            backgroundColor: '#fee',
+            border: '1px solid #fcc',
+            borderRadius: '4px',
+            color: '#c00'
+          }}>
+            {error}
+          </div>
+        )}
+
+        {loading && (
+          <div className="loading-banner" style={{
+            padding: '12px 20px',
+            marginBottom: '20px',
+            backgroundColor: '#e3f2fd',
+            border: '1px solid #90caf9',
+            borderRadius: '4px',
+            color: '#1976d2'
+          }}>
+            Loading comments...
+          </div>
+        )}
 
         <div className="board-layout">
           {/* Left Sidebar - State & Person Selection */}
@@ -165,6 +257,23 @@ const CommentBoard = () => {
                 {/* Comment Form */}
                 <div className="comment-form-section">
                   <h3>Post a Comment</h3>
+
+                  {validationWarning && (
+                    <div className="validation-warning" style={{
+                      padding: '10px 15px',
+                      marginBottom: '15px',
+                      backgroundColor: '#fff3cd',
+                      border: '1px solid #ffc107',
+                      borderRadius: '4px',
+                      color: '#856404',
+                      fontSize: '14px'
+                    }}>
+                      <strong>⚠️ Warning:</strong> {validationWarning}
+                      <br />
+                      <small>Comments with personal information will be blocked.</small>
+                    </div>
+                  )}
+
                   <form onSubmit={handleSubmitComment} className="comment-form">
                     <input
                       type="text"
@@ -185,8 +294,12 @@ const CommentBoard = () => {
                     />
                     <div className="form-footer">
                       <span className="char-count">{newComment.length}/1000</span>
-                      <button type="submit" className="submit-button">
-                        Post Comment
+                      <button
+                        type="submit"
+                        className="submit-button"
+                        disabled={submitting || validationWarning}
+                      >
+                        {submitting ? 'Posting...' : 'Post Comment'}
                       </button>
                     </div>
                   </form>

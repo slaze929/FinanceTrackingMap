@@ -55,9 +55,12 @@ const USMap = ({ onStateSelect }) => {
   const handleMouseEnter = (geo, stateName) => {
     setHoveredState(stateName);
 
-    // GSAP elevation animation
+    // Bring element to front by moving it to the end of parent
     const element = stateRefs.current[stateName];
-    if (element) {
+    if (element && element.parentNode) {
+      element.parentNode.appendChild(element);
+
+      // GSAP elevation animation
       gsap.to(element, {
         scale: 1.05,
         filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.3))',
@@ -84,6 +87,13 @@ const USMap = ({ onStateSelect }) => {
 
   const handleClick = (geo, stateName) => {
     setSelectedState(stateName);
+
+    // Bring selected element to front
+    const element = stateRefs.current[stateName];
+    if (element && element.parentNode) {
+      element.parentNode.appendChild(element);
+    }
+
     if (onStateSelect) {
       onStateSelect(stateName, congressData.states[stateName]);
     }
@@ -200,6 +210,12 @@ const USMap = ({ onStateSelect }) => {
                 const isHovered = hoveredState === stateName;
                 const isSelected = selectedState === stateName;
 
+                // Determine if state has extremely high funding (2.5x average or more)
+                const stateData = congressData.states[stateName];
+                const maxAmount = congressData.totalMoney / 49;
+                const isExtremelyHigh = stateData && (stateData.totalAmount / maxAmount) >= 2.5;
+                const outlineColor = isExtremelyHigh ? '#000000' : '#ff0000';
+
                 return (
                   <Geography
                     key={geo.rsmKey}
@@ -211,24 +227,30 @@ const USMap = ({ onStateSelect }) => {
                     style={{
                       default: {
                         fill: fillColor,
-                        stroke: isSelected ? '#ff0000' : '#333333',
+                        stroke: isSelected ? outlineColor : '#333333',
                         strokeWidth: isSelected ? 2.5 : 1.5,
                         outline: 'none',
                         cursor: 'pointer',
-                        transition: 'all 0.2s'
+                        transition: 'all 0.2s',
+                        strokeLinejoin: 'round',
+                        strokeLinecap: 'round'
                       },
                       hover: {
                         fill: fillColor,
-                        stroke: '#ff4444',
-                        strokeWidth: 2,
+                        stroke: outlineColor,
+                        strokeWidth: 3,
                         outline: 'none',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        strokeLinejoin: 'round',
+                        strokeLinecap: 'round'
                       },
                       pressed: {
                         fill: fillColor,
-                        stroke: '#ff0000',
+                        stroke: outlineColor,
                         strokeWidth: 2.5,
-                        outline: 'none'
+                        outline: 'none',
+                        strokeLinejoin: 'round',
+                        strokeLinecap: 'round'
                       }
                     }}
                   />
