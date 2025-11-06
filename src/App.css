@@ -1,42 +1,204 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;700&family=Caveat:wght@700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0a0a0a;
+  color: #f5f5f5;
+  overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.03) 2px,
+      rgba(255, 255, 255, 0.03) 4px
+    ),
+    radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(139, 0, 0, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.app-header {
   text-align: center;
+  padding: 15px 20px 8px;
+  background: rgba(10, 10, 10, 0.95);
+  border-bottom: 3px solid #8B0000;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(139, 0, 0, 0.3);
+  flex-shrink: 0;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #8B0000 20%,
+    #ff0000 50%,
+    #8B0000 80%,
+    transparent 100%
+  );
+  animation: pulse 2s ease-in-out infinite;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
-.card {
-  padding: 2em;
+.main-title {
+  font-family: 'Bebas Neue', 'Impact', sans-serif;
+  font-size: clamp(42px, 7vw, 72px);
+  font-weight: 700;
+  color: #f5f5f5;
+  margin: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow:
+    3px 3px 0px #8B0000,
+    6px 6px 10px rgba(0, 0, 0, 0.8);
+  position: relative;
 }
 
-.read-the-docs {
+.subtitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(10px, 1.2vw, 13px);
   color: #888;
+  margin-top: 5px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.map-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 15px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 10px 20px;
+  background: rgba(10, 10, 10, 0.95);
+  border-top: 2px solid #8B0000;
+  font-family: 'Space Grotesk', sans-serif;
+  box-shadow: 0 -4px 20px rgba(139, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.app-footer p {
+  margin: 4px 0;
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.app-footer a {
+  color: #ff4444;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.app-footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff4444;
+  transition: width 0.3s;
+}
+
+.app-footer a:hover {
+  color: #ff6666;
+}
+
+.app-footer a:hover::after {
+  width: 100%;
+}
+
+.disclaimer {
+  font-size: 10px;
+  color: #555;
+  font-style: normal;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px;
+  }
+
+  .app-header {
+    padding: 20px 10px 10px;
+  }
+
+  .main-title {
+    font-size: 48px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .map-container {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 36px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
 }

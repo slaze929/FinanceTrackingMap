@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import AnimatedEye from './components/AnimatedEye';
+import USMap from './components/USMap';
+import DetailsPanel from './components/DetailsPanel';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedState, setSelectedState] = useState(null);
+  const [stateData, setStateData] = useState(null);
+
+  const handleStateSelect = (stateName, data) => {
+    setSelectedState(stateName);
+    setStateData(data);
+  };
+
+  const handleClosePanel = () => {
+    setSelectedState(null);
+    setStateData(null);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+    <div className="app-container">
+      {/* Title with animated eye */}
+      <header className="app-header">
+        <h1 className="main-title">
+          Where are J<AnimatedEye />w?
+        </h1>
+        <p className="subtitle">
+          Track AIPAC lobby money by state
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </header>
+
+      {/* US Map */}
+      <main className="map-container">
+        <USMap onStateSelect={handleStateSelect} />
+      </main>
+
+      {/* Details Panel */}
+      <DetailsPanel
+        stateName={selectedState}
+        stateData={stateData}
+        onClose={handleClosePanel}
+      />
+
+      {/* Footer */}
+      <footer className="app-footer">
+        <p>
+          Data source:{' '}
+          <a
+            href="https://www.trackaipac.com/congress"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            TrackAIPAC.com
+          </a>
+        </p>
+        <p className="disclaimer">
+          Click on any state to view congresspeople and their lobby totals
+        </p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;

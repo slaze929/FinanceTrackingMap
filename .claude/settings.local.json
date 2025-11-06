@@ -14,7 +14,14 @@
       "Bash(gh --version:*)",
       "Bash(winget install:*)",
       "Bash(choco install:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "WebFetch(domain:www.trackaipac.com)",
+      "Bash(npm install:*)",
+      "Bash(node scripts/scrapeData.js:*)",
+      "Bash(node scripts/downloadHTML.js:*)",
+      "Bash(node scripts/smartScraper.js:*)",
+      "Bash(node scripts/finalScraper.js:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []
